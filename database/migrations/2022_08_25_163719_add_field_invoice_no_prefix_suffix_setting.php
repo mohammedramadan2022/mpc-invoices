@@ -24,6 +24,14 @@ return new class extends Migration
             'key' => 'invoice_no_suffix',
             'value' => null,
         ]);
+        Setting::create([
+            'key' => 'quote_no_prefix',
+            'value' => null,
+        ]);
+        Setting::create([
+            'key' => 'quote_no_suffix',
+            'value' => null,
+        ]);
     }
 
     /**
@@ -36,5 +44,7 @@ return new class extends Migration
         });
         Setting::where('key', 'invoice_no_prefix')->delete();
         Setting::where('key', 'invoice_no_suffix')->delete();
+        Setting::where('key', 'quote_no_prefix')->delete();
+        Setting::where('key', 'quote_no_suffix')->delete();
     }
 };

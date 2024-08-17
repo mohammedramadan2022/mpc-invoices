@@ -97,7 +97,7 @@ class InvoiceRepository extends BaseRepository
             $data['products'] = $data['products'] + $data['productItem'];
         }
         $data['associateProducts'] = $this->getAssociateProductList($invoice);
-        $data['clients'] = User::whereHas('client')->get()->pluck('full_name', 'id')->toArray();
+        $data['clients'] = User::whereHas('client')->get()->pluck('full_name', 'id' , 'clients.id as client_id')->toArray();
         $data['discount_type'] = Invoice::DISCOUNT_TYPE;
         $invoiceStatusArr = Invoice::STATUS_ARR;
         unset($invoiceStatusArr[Invoice::STATUS_ALL]);
@@ -170,6 +170,7 @@ class InvoiceRepository extends BaseRepository
                 throw new UnprocessableEntityHttpException('Please enter the value in Recurring Cycle.');
             }
 
+//            dd($input);
             $inputInvoiceTaxes = isset($input['taxes']) ? $input['taxes'] : [];
             $invoiceItemInputArray = Arr::only($input, ['product_id', 'quantity', 'price', 'tax', 'tax_id']);
             $invoiceExist = Invoice::where('invoice_id', $input['invoice_id'])->exists();

@@ -67,6 +67,8 @@ class Client extends Model
         'is_password_set',
         'vat_no',
         'company_name',
+        'invoice_start',
+        'quote_start',
     ];
 
     protected $casts = [
@@ -81,6 +83,8 @@ class Client extends Model
         'is_password_set' => 'boolean',
         'vat_no' => 'string',
         'company_name' => 'string',
+        'invoice_start' => 'integer',
+        'quote_start' => 'integer',
     ];
 
     /**
@@ -96,6 +100,8 @@ class Client extends Model
         'postal_code' => 'required|string',
         'address' => 'nullable|string',
         'website' => 'nullable|url',
+        'invoice_start' => 'nullable|numeric',
+        'quote_start' => 'nullable|numeric',
     ];
 
     public function user(): BelongsTo

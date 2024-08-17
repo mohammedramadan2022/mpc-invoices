@@ -235,6 +235,8 @@ return [
         'currency_position' => 'Currency Position',
         'invoice_no_prefix' => 'Invoice No Prefix',
         'invoice_no_suffix' => 'Invoice No Suffix',
+        'quote_no_prefix' => 'Quote No Prefix',
+        'quote_no_suffix' => 'Quote No Suffix',
         'payment_auto_approved' => 'Payment auto approval',
         'approved' => 'Approved',
         'denied' => 'Denied',

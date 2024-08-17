@@ -133,11 +133,11 @@
     {{ Form::text('vat_no', null, ['class' => 'form-control', 'placeholder' => $vatNoLabel]) }}
 </div>
 <div class="col-xl-3 col-lg-4 mb-7">
-    {{ Form::label('Qoute Start', 'Qoute Start:', ['class' => 'form-label mb-3']) }}
-    {{ Form::number('qoute_start', null, ['class' => 'form-control', 'placeholder' => 'Qoute Start']) }}
+    {{ Form::label('Quote Start', 'Quote Start:', ['class' => 'form-label mb-3']) }}
+    {{ Form::number('quote_start', null, ['class' => 'form-control', 'placeholder' => 'Quote Start']) }}
 </div>
 <div class="col-xl-3 col-lg-4 mb-7">
-    {{ Form::label('Invoice Start', 'Qoute Start:', ['class' => 'form-label mb-3']) }}
+    {{ Form::label('Invoice Start', 'Invoice Start:', ['class' => 'form-label mb-3']) }}
     {{ Form::number('invoice_start', null, ['class' => 'form-control', 'placeholder' => 'Invoice Start']) }}
 </div>
 <div class="float-end d-flex mt-5">

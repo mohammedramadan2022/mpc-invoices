@@ -18,6 +18,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Stripe\Stripe;
+use App\Models\Client;
 
 if (! function_exists('getLogInUser')) {
     /**
@@ -244,6 +245,19 @@ if (! function_exists('getInvoiceNoPrefix')) {
         return $invoiceNoPrefix->value;
     }
 }
+if (! function_exists('getQuoteNoPrefix')) {
+    /**
+     * @return mixed
+     */
+    function getQuoteNoPrefix()
+    {
+        /** @var Setting $quoteNoPrefix */
+        $quoteNoPrefix = Setting::where('key', '=', 'quote_no_prefix')->first();
+
+        return $quoteNoPrefix->value;
+    }
+}
+
 
 if (! function_exists('getInvoiceNoSuffix')) {
     /**
@@ -255,6 +269,18 @@ if (! function_exists('getInvoiceNoSuffix')) {
         $invoiceNoSuffix = Setting::where('key', '=', 'invoice_no_suffix')->first();
 
         return $invoiceNoSuffix->value;
+    }
+}
+if (! function_exists('getQuoteNoSuffix')) {
+    /**
+     * @return mixed
+     */
+    function getQuoteNoSuffix()
+    {
+        /** @var Setting $quoteNoSuffix */
+        $quoteNoSuffix = Setting::where('key', '=', 'quote_no_suffix')->first();
+
+        return $quoteNoSuffix->value;
     }
 }
 

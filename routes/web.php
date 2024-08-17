@@ -18,6 +18,7 @@ use App\Http\Controllers\QuoteController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\TaxController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\OperationController;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
@@ -83,6 +84,11 @@ Route::middleware(['xss'])->group(function () {
 
 Route::prefix('admin')->middleware(['auth', 'xss', 'role:admin'])->group(function () {
     // View logs
+
+    Route::get('/invoices/last-invoice-id', [OperationController::class, 'getLastInvoiceId'])->name('invoices.getLastInvoiceId');
+    Route::get('/invoices/last-quote-id', [OperationController::class, 'getLastQuoteId'])->name('quotes.getLastQuoteId');
+
+
     Route::redirect('logs', 'log-viewer');
 
     Route::get('generate-recurring-invoice', function () {
@@ -203,6 +209,8 @@ Route::prefix('admin')->middleware(['auth', 'xss', 'role:admin'])->group(functio
     Route::get('/quotes-excel', [QuoteController::class, 'exportQuotesExcel'])->name('admin.quotesExcel');
     // export quotes pdf admin route
     Route::get('quotes-pdf', [QuoteController::class, 'exportQuotesPdf'])->name('admin.quotes.pdf');
+
+
     Route::get(
         'transactions-excel',
         [paymentController::class, 'exportTransactionsExcel']

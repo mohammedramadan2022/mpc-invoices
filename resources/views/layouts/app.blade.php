@@ -74,6 +74,8 @@
     </div>
     @include('profile.changePassword')
     @include('profile.changelanguage')
+
+
 </body>
 
 

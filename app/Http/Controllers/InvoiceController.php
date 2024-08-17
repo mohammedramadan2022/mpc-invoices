@@ -58,7 +58,6 @@ class InvoiceController extends AppBaseController
         $data = $this->invoiceRepository->getSyncList();
         $data['currencies'] = getCurrencies();
         unset($data['statusArr'][0]);
-
         return view('invoices.create')->with($data);
     }
 
@@ -286,4 +285,8 @@ class InvoiceController extends AppBaseController
 
         return $this->sendResponse($data, 'send invoice data retrieved successfully.');
     }
+
+
+
+
 }

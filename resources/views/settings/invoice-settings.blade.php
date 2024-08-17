@@ -70,6 +70,19 @@
                             </div>
                         </div>
                     </div>
+
+                    <div class="form-group col-sm-6 mb-5">
+                        {{ Form::label('Quote No Prefix', __('messages.setting.quote_no_prefix') . ':', ['class' => 'form-label fs-6 mb-3']) }}
+                        {{ Form::text('quote_no_prefix', $settings['quote_no_prefix'], ['class' => 'form-control', 'placeholder' => __('messages.setting.quote_no_prefix'), 'maxlength' => '50']) }}
+                    </div>
+
+                    <div class="form-group col-sm-6 mb-5">
+                        {{ Form::label('Quote No Suffix', __('messages.setting.quote_no_suffix') . ':', ['class' => 'form-label fs-6 mb-3']) }}
+                        {{ Form::text('quote_no_suffix', $settings['quote_no_suffix'], ['class' => 'form-control', 'placeholder' => __('messages.setting.quote_no_suffix'), 'maxlength' => '50']) }}
+                    </div>
+
+
+
                     <div class="form-group col-sm-6 mb-5">
                         {{ Form::label('show_product_description', __('messages.setting.show_product_description') . ':', ['class' => 'form-label mb-3']) }}
                         <label class="form-check form-switch form-check-custom mt-3 width-fit-content">

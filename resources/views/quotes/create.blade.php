@@ -41,3 +41,26 @@
     {{ Form::hidden('decimal_separator',isset($quote->recurring) ,['id' => 'decimalSeparator']) }}
 
 @endsection
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('#client_id').change(function() {
+            var clientId = $(this).val();
+            if (clientId) {
+                $.ajax({
+                    url: '{{ route("quotes.getLastQuoteId") }}',
+                    type: 'GET',
+                    data: { client_id: clientId },
+                    success: function(response) {
+                        // Handle the response, e.g., update a hidden input with the last invoice ID
+
+                        $('#quoteId').val(response.last_quote_id);
+                    },
+                    error: function(e) {
+                        alert('An error occurred while fetching the last invoice ID.');
+                    }
+                });
+            }
+        });
+    });
+</script>

@@ -3,10 +3,40 @@
         {{ Form::label('client_id', __('messages.quote.client') . ':', ['class' => 'form-label required mb-3']) }}
         {{ Form::select('client_id', $clients, $client_id ?? null, ['class' => 'form-select io-select2', 'id' => 'client_id', 'placeholder' => __('messages.quote.client'), 'required', 'data-control' => 'select2']) }}
     </div>
-    <div class="col-lg-4 col-sm-12 mb-5">
-        {{ Form::label('quote_id', __('messages.quote.quote') . ' #', ['class' => 'form-label mb-3']) }}
-        {{ Form::text('quote_id', \App\Models\Quote::generateUniqueQuoteId(), ['class' => 'form-control', 'required', 'id' => 'quoteId', 'maxlength' => 6, 'onkeypress' => 'return blockSpecialChar(event)']) }}
+
+
+
+    <div class="col-lg-4 col-sm-12 mb-lg-0 mb-5">
+        @if (!empty(getQuoteNoPrefix()) || !empty(getQuoteNoSuffix()))
+            <div class="" data-bs-toggle="tooltip" data-bs-trigger="hover" title=""
+                 data-bs-original-title="Quote number">
+                <div class="form-group col-sm-12 mb-5">
+                    {{ Form::label('paid_amount', __('messages.quote.Quote') . ':', ['class' => 'form-label mb-3 required']) }}
+                    <div class="input-group">
+                        @if (!empty(getQuoteNoPrefix()))
+                            <a class="input-group-text bg-secondary border-0 text-decoration-none text-black"
+                               data-toggle="tooltip" data-placement="right" title="Quote No Prefix">
+                                {{ getQuoteNoPrefix() }}
+                            </a>
+                        @endif
+                        {{ Form::text('quote_id', null, ['class' => 'form-control', 'required', 'id' => 'quoteId', 'maxlength' => 6, 'onkeypress' => 'return blockSpecialChar(event)']) }}
+                        @if (!empty(getQuoteNoSuffix()))
+                            <a class="input-group-text bg-secondary border-0 text-decoration-none text-black"
+                               data-toggle="tooltip" data-placement="right" title="quote No Suffix">
+                                {{ getQuoteNoSuffix() }}
+                            </a>
+                        @endif
+                    </div>
+                </div>
+            </div>
+        @else
+            <div data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-original-title="quote number">
+                <span class="form-label">{{ __('messages.qoute.qoute') }} #</span>
+                {{ Form::text('quote_id', \App\Models\Quote::generateUniqueQuoteId(), ['class' => 'form-control mt-3', 'required', 'id' => 'quoteId', 'maxlength' => 6, 'onkeypress' => 'return blockSpecialChar(event)']) }}
+            </div>
+        @endif
     </div>
+
     <div class="col-lg-4 col-sm-12 mb-5">
         {{ Form::label('quote_date', __('messages.quote.quote_date') . ':', ['class' => 'form-label required mb-3']) }}
         {{ Form::text('quote_date', null, ['class' => 'form-select', 'id' => 'quote_date', 'autocomplete' => 'off', 'required']) }}

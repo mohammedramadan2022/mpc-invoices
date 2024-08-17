@@ -16,7 +16,7 @@
                                 {{ getInvoiceNoPrefix() }}
                             </a>
                         @endif
-                        {{ Form::text('invoice_id', \App\Models\Invoice::generateUniqueInvoiceId(), ['class' => 'form-control', 'required', 'id' => 'invoiceId', 'maxlength' => 6, 'onkeypress' => 'return blockSpecialChar(event)']) }}
+                        {{ Form::text('invoice_id', null, ['class' => 'form-control', 'required', 'id' => 'invoiceId', 'maxlength' => 6, 'onkeypress' => 'return blockSpecialChar(event)']) }}
                         @if (!empty(getInvoiceNoSuffix()))
                             <a class="input-group-text bg-secondary border-0 text-decoration-none text-black"
                                 data-toggle="tooltip" data-placement="right" title="Invoice No Suffix">

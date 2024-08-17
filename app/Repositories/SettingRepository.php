@@ -54,7 +54,7 @@ class SettingRepository extends BaseRepository
 
             $settingInputArray = Arr::only($input, [
                 'current_currency', 'currency_after_amount',
-                'decimal_separator', 'thousand_separator', 'invoice_no_prefix', 'invoice_no_suffix', 'show_product_description', 'due_invoice_days',
+                'decimal_separator', 'thousand_separator', 'invoice_no_prefix', 'invoice_no_suffix','quote_no_prefix', 'quote_no_suffix', 'show_product_description', 'due_invoice_days',
             ]);
         } else {
             $input['mail_notification'] = ($input['mail_notification'] == 1) ? 1 : 0;

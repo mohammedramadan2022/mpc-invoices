@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Exports\AdminQuotesExport;
 use App\Http\Requests\CreateQuoteRequest;
 use App\Http\Requests\UpdateQuoteRequest;
+use App\Models\Client;
 use App\Models\Invoice;
 use App\Models\InvoiceItem;
 use App\Models\Product;
@@ -22,6 +23,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Http;
 use Laracasts\Flash\Flash;
 use Maatwebsite\Excel\Facades\Excel;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
@@ -74,7 +76,7 @@ class QuoteController extends AppBaseController
             return $this->sendError($e->getMessage());
         }
 
-        return $this->sendResponse($quote,__('messages.flash.quote_saved_successfully'));
+        return $this->sendResponse($quote, __('messages.flash.quote_saved_successfully'));
     }
 
     /**
@@ -153,12 +155,16 @@ class QuoteController extends AppBaseController
         $quoteDatas = $this->quoteRepository->getQuoteData($quote);
         $quoteData = $quoteDatas['quote'];
         $quoteItems = $quoteDatas['quote']['quoteItems'];
+        $url = route('invoices.getLastInvoiceId');
+        $response = Http::get($url);
 
-        if (! empty(getInvoiceNoPrefix())) {
-            $quoteData['quote_id'] = getInvoiceNoPrefix().'-'.$quoteData['quote_id'];
+        $lastInvoiceId =self::getLastInvoiceId($quoteData['client_id']);
+
+        if (!empty(getInvoiceNoPrefix())) {
+            $quoteData['quote_id'] = getInvoiceNoPrefix() . '-' . $lastInvoiceId;
         }
-        if (! empty(getInvoiceNoSuffix())) {
-            $quoteData['quote_id'] .= '-'.getInvoiceNoSuffix();
+        if (!empty(getInvoiceNoSuffix())) {
+            $quoteData['quote_id'] .= '-' . getInvoiceNoSuffix();
         }
 
         $invoice['invoice_id'] = $quoteData['quote_id'];
@@ -192,6 +198,39 @@ class QuoteController extends AppBaseController
 
         return $this->sendSuccess(__('messages.flash.converted_to_invoice_successfully'));
     }
+
+
+    public static function getLastInvoiceId($clientId)
+    {
+
+
+        $client = Client::whereId( $clientId)
+        ->first();
+
+        $lastInvoice = Invoice::where('client_id', $clientId)->latest('invoice_id')->first();
+
+        return $lastInvoice ? self::getLastIvoicePlus1($lastInvoice->invoice_id) : ($client ? $client->invoice_start : 1);
+
+    }
+
+    public static function getLastIvoicePlus1($invoiceNumber)
+    {
+        preg_match('/(\d+)$/', $invoiceNumber, $matches);
+
+        if (isset($matches[1])) {
+            // Extract the numeric part
+            $number = intval($matches[1]);
+
+            // Increment the number
+            $incrementedNumber = $number + 1;
+
+            // Replace the old number with the new incremented number
+            return $incrementedNumber;
+        }
+
+        return $invoiceNumber +1;
+    }
+
 
     public function exportQuotesExcel(): BinaryFileResponse
     {

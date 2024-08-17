@@ -42,3 +42,28 @@
     {{ Form::hidden('decimal_separator',isset($invoice->recurring) ,['id' => 'decimalSeparator']) }}
     {{ Form::hidden('default_tax',json_encode($defaultTax, true),['id' => 'defaultTax']) }}
 @endsection
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('#client_id').change(function() {
+            var clientId = $(this).val();
+            if (clientId) {
+                $.ajax({
+                    url: '{{ route("invoices.getLastInvoiceId") }}',
+                    type: 'GET',
+                    data: { client_id: clientId },
+                    success: function(response) {
+                        // Handle the response, e.g., update a hidden input with the last invoice ID
+
+                        $('#invoiceId').val(response.last_invoice_id);
+                    },
+                    error: function(e) {
+                        alert('An error occurred while fetching the last invoice ID.');
+                    }
+                });
+            }
+        });
+    });
+</script>
+
