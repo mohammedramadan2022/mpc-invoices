@@ -144,7 +144,7 @@ class QuoteRepository extends BaseRepository
                 if ($validator->fails()) {
                     throw new UnprocessableEntityHttpException($validator->errors()->first());
                 }
-                $data['product_name'] = is_numeric($data['product_id']);
+                  // $data['product_name'] = is_numeric($data['product_id']);
                 if ($data['product_name'] == true) {
                     $data['product_name'] = null;
                 } else {

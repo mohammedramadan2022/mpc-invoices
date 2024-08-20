@@ -28,9 +28,10 @@ class QuoteItem extends Model
      * @var array
      */
     public static $rules = [
-        'product_id' => 'required',
-        'quantity' => 'required|integer',
-        'price' => 'required|regex:/^\d+(\.\d{1,2})?$/',
+        // 'product_id' => 'required',
+        'product_name' => 'required',
+        'quantity'   => 'required|integer',
+        'price'      => 'required|regex:/^\d+(\.\d{1,2})?$/',
     ];
 
     /**
