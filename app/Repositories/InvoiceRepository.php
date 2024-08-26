@@ -172,7 +172,8 @@ class InvoiceRepository extends BaseRepository
 
 //            dd($input);
             $inputInvoiceTaxes = isset($input['taxes']) ? $input['taxes'] : [];
-            $invoiceItemInputArray = Arr::only($input, ['product_id', 'quantity', 'price', 'tax', 'tax_id']);
+//            $invoiceItemInputArray = Arr::only($input, ['product_id', 'quantity', 'price', 'tax', 'tax_id']);
+            $invoiceItemInputArray = Arr::only($input, ['product_name', 'quantity', 'price', 'tax', 'tax_id']);
             $invoiceExist = Invoice::where('invoice_id', $input['invoice_id'])->exists();
             $invoiceItemInput = $this->prepareInputForInvoiceItem($invoiceItemInputArray);
             $total = [];
@@ -207,13 +208,13 @@ class InvoiceRepository extends BaseRepository
                     throw new UnprocessableEntityHttpException($validator->errors()->first());
                 }
 
-                $data['product_name'] = is_numeric($data['product_id']);
-                if ($data['product_name'] == true) {
-                    $data['product_name'] = null;
-                } else {
-                    $data['product_name'] = $data['product_id'];
-                    $data['product_id'] = null;
-                }
+//                $data['product_name'] = is_numeric($data['product_id']);
+//                if ($data['product_name'] == true) {
+//                    $data['product_name'] = null;
+//                } else {
+//                    $data['product_name'] = $data['product_id'];
+//                    $data['product_id'] = null;
+//                }
                 $data['amount'] = $data['price'] * $data['quantity'];
 
                 $data['total'] = $data['amount'];
@@ -325,13 +326,13 @@ class InvoiceRepository extends BaseRepository
                 if ($validator->fails()) {
                     throw new UnprocessableEntityHttpException($validator->errors()->first());
                 }
-                $data['product_name'] = is_numeric($data['product_id']);
-                if ($data['product_name'] == true) {
-                    $data['product_name'] = null;
-                } else {
-                    $data['product_name'] = $data['product_id'];
-                    $data['product_id'] = null;
-                }
+//                $data['product_name'] = is_numeric($data['product_id']);
+//                if ($data['product_name'] == true) {
+//                    $data['product_name'] = null;
+//                } else {
+//                    $data['product_name'] = $data['product_id'];
+//                    $data['product_id'] = null;
+//                }
 
                 $data['amount'] = $data['price'] * $data['quantity'];
                 $data['total'] = $data['amount'];

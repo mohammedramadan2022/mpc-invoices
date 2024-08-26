@@ -114,7 +114,7 @@ class QuoteRepository extends BaseRepository
             if ($input['final_amount'] == 'NaN') {
                 $input['final_amount'] = 0;
             }
-            $quoteItemInputArray = Arr::only($input, ['product_id', 'quantity', 'price']);
+            $quoteItemInputArray = Arr::only($input, ['product_name', 'quantity', 'price']);
             $quoteExist = Quote::where('quote_id', $input['quote_id'])->exists();
             $quoteItemInput = $this->prepareInputForQuoteItem($quoteItemInputArray);
             $total = [];
@@ -139,18 +139,23 @@ class QuoteRepository extends BaseRepository
             $quote = Quote::create($input);
             $totalAmount = 0;
             foreach ($quoteItemInput as $key => $data) {
-                $validator = Validator::make($data, QuoteItem::$rules, QuoteItem::$messages);
 
+                $validator = Validator::make($data, QuoteItem::$rules, QuoteItem::$messages);
                 if ($validator->fails()) {
                     throw new UnprocessableEntityHttpException($validator->errors()->first());
                 }
                   // $data['product_name'] = is_numeric($data['product_id']);
-                if ($data['product_name'] == true) {
-                    $data['product_name'] = null;
-                } else {
-                    $data['product_name'] = $data['product_id'];
-                    $data['product_id'] = null;
-                }
+
+//                if ($data['product_name'] == true) {
+////                    $data['product_name'] = null;
+////                    dd($data['product_name']);
+//
+//                } else {
+//                    $data['product_name'] = $data['product_id'];
+//                    $data['product_id'] = null;
+//                    dd(888);
+//
+//                }
                 $data['amount'] = $data['price'] * $data['quantity'];
 
                 $data['total'] = $data['amount'];

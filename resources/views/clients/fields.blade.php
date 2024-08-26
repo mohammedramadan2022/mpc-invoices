@@ -36,7 +36,7 @@
                     <input class="form-control" type="password" placeholder="{{ __('messages.client.password') }}"
                            name="password" autocomplete="off" aria-label="password" data-toggle="password" required>
                     <span
-                            class="position-absolute d-flex align-items-center top-0 bottom-0 end-0 me-4 input-icon input-password-hide cursor-pointer text-gray-600">
+                        class="position-absolute d-flex align-items-center top-0 bottom-0 end-0 me-4 input-icon input-password-hide cursor-pointer text-gray-600">
                         <i class="bi bi-eye-slash-fill"></i>
                     </span>
                 </div>
@@ -53,7 +53,7 @@
                            placeholder="{{ __('messages.client.confirm_password') }}" name="password_confirmation"
                            autocomplete="off" aria-label="Password" data-toggle="password" required>
                     <span
-                            class="position-absolute d-flex align-items-center top-0 bottom-0 end-0 me-4 input-icon input-password-hide cursor-pointer text-gray-600">
+                        class="position-absolute d-flex align-items-center top-0 bottom-0 end-0 me-4 input-icon input-password-hide cursor-pointer text-gray-600">
                         <i class="bi bi-eye-slash-fill"></i>
                     </span>
                 </div>
@@ -128,20 +128,24 @@
         <div class="form-text">{{ __('messages.flash.allowed_file_types_png_jpg_jpeg') }}</div>
     </div>
 </div>
-<div class="col-xl-3 col-lg-4 mb-7">
-    {{ Form::label('vat_no', $vatNoLabel . ':', ['class' => 'form-label mb-3']) }}
-    {{ Form::text('vat_no', null, ['class' => 'form-control', 'placeholder' => $vatNoLabel]) }}
-</div>
-<div class="col-xl-3 col-lg-4 mb-7">
-    {{ Form::label('Quote Start', 'Quote Start:', ['class' => 'form-label mb-3']) }}
-    {{ Form::number('quote_start', null, ['class' => 'form-control', 'placeholder' => 'Quote Start']) }}
-</div>
-<div class="col-xl-3 col-lg-4 mb-7">
-    {{ Form::label('Invoice Start', 'Invoice Start:', ['class' => 'form-label mb-3']) }}
-    {{ Form::number('invoice_start', null, ['class' => 'form-control', 'placeholder' => 'Invoice Start']) }}
-</div>
-<div class="float-end d-flex mt-5">
-    {{ Form::submit(__('messages.common.save'), ['class' => 'btn btn-primary me-3']) }}
-    <a href="{{ route('clients.index') }}" type="reset"
-       class="btn btn-secondary btn-active-light-primary">{{ __('messages.common.cancel') }}</a>
+{{--<div class="col-xl-3 col-lg-4 mb-7">--}}
+{{--    {{ Form::label('vat_no', $vatNoLabel . ':', ['class' => 'form-label mb-3']) }}--}}
+{{--    {{ Form::text('vat_no', null, ['class' => 'form-control', 'placeholder' => $vatNoLabel]) }}--}}
+{{--</div>--}}
+
+<div class="row gx-10 mb-5">
+
+    <div class="col-xl-3 col-lg-4 mb-7">
+        {{ Form::label('Quote Start', 'Quote Start:', ['class' => 'form-label mb-3']) }}
+        {{ Form::number('quote_start', null, ['class' => 'form-control', 'placeholder' => 'Quote Start']) }}
+    </div>
+    <div class="col-xl-3 col-lg-4 mb-7">
+        {{ Form::label('Invoice Start', 'Invoice Start:', ['class' => 'form-label mb-3']) }}
+        {{ Form::number('invoice_start', null, ['class' => 'form-control', 'placeholder' => 'Invoice Start']) }}
+    </div>
+    <div class="float-end d-flex mt-5">
+        {{ Form::submit(__('messages.common.save'), ['class' => 'btn btn-primary me-3']) }}
+        <a href="{{ route('clients.index') }}" type="reset"
+           class="btn btn-secondary btn-active-light-primary">{{ __('messages.common.cancel') }}</a>
+    </div>
 </div>

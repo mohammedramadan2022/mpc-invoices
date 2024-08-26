@@ -49,7 +49,8 @@ class InvoiceItem extends Model
      * @var array
      */
     public static $rules = [
-        'product_id' => 'required',
+//        'product_id' => 'required',
+        'product_name' => 'required',
         'quantity' => 'required|regex:/^\d*(\.\d{1,2})?$/',
         'price' => 'required|regex:/^\d+(\.\d{1,2})?$/',
     ];
