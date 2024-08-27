@@ -88,7 +88,7 @@
                 <thead>
                     <tr class="border-bottom fs-7 fw-bolder text-gray-700 text-uppercase">
                         <th scope="col">#</th>
-                        <th scope="col" class="required">{{ __('messages.product.product') }}</th>
+                        <th scope="col" class="required">{{ __('messages.Description') }}</th>
                         <th scope="col" class="required">{{ __('messages.invoice.qty') }}</th>
                         <th scope="col" class="required">{{ __('messages.product.unit_price') }}</th>
                         <th scope="col">{{ __('messages.invoice.tax') }}</th>

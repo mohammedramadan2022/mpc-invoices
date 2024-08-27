@@ -62,9 +62,9 @@
                             @if (!empty($client->address))
                                 <b>{{ __('messages.common.address') . ':' }}&nbsp;</b>{{ $client->address }}
                             @endif
-                            @if (!empty($client->vat_no))
-                                <br><b>{{ getVatNoLabel() . ':' }}&nbsp;</b>{{ $client->vat_no }}
-                            @endif
+{{--                            @if (!empty($client->vat_no))--}}
+{{--                                <br><b>{{ getVatNoLabel() . ':' }}&nbsp;</b>{{ $client->vat_no }}--}}
+{{--                            @endif--}}
                         </td>
                         <td class="py-1">
                             <div class="text-nowrap">

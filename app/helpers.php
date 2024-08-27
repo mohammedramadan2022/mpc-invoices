@@ -56,7 +56,7 @@ if (! function_exists('getLogoUrl')) {
             $appLogo = Setting::where('key', '=', 'app_logo')->first();
         }
 
-        return asset($appLogo->logo_url);
+        return $appLogo->logo_url;
     }
 }
 

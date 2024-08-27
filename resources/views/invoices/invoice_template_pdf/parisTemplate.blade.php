@@ -124,11 +124,11 @@
                                                 <p class="mb-1 font-black-900 fw-bold">
                                                     <strong>{{ __('messages.common.address') . ':' }}&nbsp;</strong>{{ $client->address }}
                                                 </p>
-                                                @if (!empty($client->vat_no))
-                                                    <p class="mb-1 font-black-900 fw-bold" style="white-space:nowrap;">
-                                                        <strong>{{ getVatNoLabel() . ':' }}&nbsp;</strong>{{ $client->vat_no }}
-                                                    </p>
-                                                @endif
+{{--                                                @if (!empty($client->vat_no))--}}
+{{--                                                    <p class="mb-1 font-black-900 fw-bold" style="white-space:nowrap;">--}}
+{{--                                                        <strong>{{ getVatNoLabel() . ':' }}&nbsp;</strong>{{ $client->vat_no }}--}}
+{{--                                                    </p>--}}
+{{--                                                @endif--}}
                                             </td>
                                             <td width="30%" class="text-center">
                                                 <p class="mb-2" style="color:{{ $invoice_template_color }}">

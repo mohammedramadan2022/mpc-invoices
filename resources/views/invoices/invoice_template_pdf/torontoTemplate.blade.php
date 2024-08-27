@@ -89,9 +89,9 @@
                                     <span>{{ $client->user->full_name }}</span><br>
                                     <span>{{ $client->user->email }}</span><br>
                                     <span>{{ $client->address }}</span>
-                                    @if (!empty($client->vat_no))
-                                        <br><span>{{ $client->vat_no }}</span><br>
-                                    @endif
+{{--                                    @if (!empty($client->vat_no))--}}
+{{--                                        <br><span>{{ $client->vat_no }}</span><br>--}}
+{{--                                    @endif--}}
                                 </td>
                             </tr>
                         </tbody>

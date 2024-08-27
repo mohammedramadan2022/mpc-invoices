@@ -65,10 +65,10 @@
                                 class="text-dark fw-bold">{{ $client->user->email }}</span></p>
                         <p class="m-0 font-color-gray fs-6">{{ __('messages.common.address') . ':' }} <span
                                 class="text-dark fw-bold">{{ $client->address }}</span></p>
-                        @if (!empty($client->vat_no))
-                            <p class="m-0 font-color-gray fs-6">{{ getVatNoLabel() . ':' }} <span
-                                    class="text-dark fw-bold">{{ $client->vat_no }}</span></p>
-                        @endif
+{{--                        @if (!empty($client->vat_no))--}}
+{{--                            <p class="m-0 font-color-gray fs-6">{{ getVatNoLabel() . ':' }} <span--}}
+{{--                                    class="text-dark fw-bold">{{ $client->vat_no }}</span></p>--}}
+{{--                        @endif--}}
                     </td>
                     <td class="w-50">
                         <p class="fs-6 mb-2"><strong>{{ __('messages.common.from') . ':' }}</strong></p>

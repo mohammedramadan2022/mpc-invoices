@@ -39,11 +39,13 @@
 
     <div class="col-lg-4 col-sm-12 mb-5">
         {{ Form::label('quote_date', __('messages.quote.quote_date') . ':', ['class' => 'form-label required mb-3']) }}
-        {{ Form::text('quote_date', null, ['class' => 'form-select', 'id' => 'quote_date', 'autocomplete' => 'off', 'required']) }}
+        {{ Form::text('quote_date', null, ['class' => 'form-select', 'id' => 'invoice_date', 'autocomplete' => 'off', 'required']) }}
     </div>
     <div class="mb-5 col-lg-4 col-sm-12">
+
         {{ Form::label('due_date', __('messages.quote.due_date') . ':', ['class' => 'form-label required mb-3']) }}
-        {{ Form::text('due_date', null, ['class' => 'form-select', 'id' => 'quoteDueDate', 'autocomplete' => 'off', 'required']) }}
+        {{ Form::text('due_date', null, ['class' => 'form-select', 'id' => 'due_date', 'autocomplete' => 'off', 'required']) }}
+
     </div>
     <div class="col-lg-4 col-sm-12">
         <div class="mb-5">

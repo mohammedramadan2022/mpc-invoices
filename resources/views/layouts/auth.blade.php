@@ -26,19 +26,19 @@
         @include('auth.change_language_button')
         @yield('content')
     </div>
-    <footer>
-        <div class="container-fluid padding-0">
-            <div class="row align-items-center justify-content-center">
-                <div class="col-xl-6">
-                    <div class="copyright text-center text-muted">
-                        {{ __('messages.common.all_rights_reserved') }} &copy; {{ date('Y') }} <a
-                            href="{{ url('/') }}" class="font-weight-bold ml-1"
-                            target="_blank">{{ getAppName() }}</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </footer>
+{{--    <footer>--}}
+{{--        <div class="container-fluid padding-0">--}}
+{{--            <div class="row align-items-center justify-content-center">--}}
+{{--                <div class="col-xl-6">--}}
+{{--                    <div class="copyright text-center text-muted">--}}
+{{--                        {{ __('messages.common.all_rights_reserved') }} &copy; {{ date('Y') }} <a--}}
+{{--                            href="{{ url('/') }}" class="font-weight-bold ml-1"--}}
+{{--                            target="_blank">{{ getAppName() }}</a>--}}
+{{--                    </div>--}}
+{{--                </div>--}}
+{{--            </div>--}}
+{{--        </div>--}}
+{{--    </footer>--}}
     <!-- Scripts -->
     <script src="{{ asset('messages.js') }}"></script>
     <script src="{{ mix('assets/js/auth-third-party.js') }}"></script>

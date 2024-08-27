@@ -73,10 +73,10 @@
                                 <span><b>{{ __('messages.common.address') . ':' }}</b></span>
                                 <span class="text-color">{{ $client->address }}</span><br>
                             @endif
-                            @if (!empty($client->vat_no))
-                                <span><b>{{ getVatNoLabel() . ':' }}</b></span>
-                                <span class="text-color">{{ $client->vat_no }}</span><br>
-                            @endif
+{{--                            @if (!empty($client->vat_no))--}}
+{{--                                <span><b>{{ getVatNoLabel() . ':' }}</b></span>--}}
+{{--                                <span class="text-color">{{ $client->vat_no }}</span><br>--}}
+{{--                            @endif--}}
                         </td>
                         <td class="from" style="vertical-align:top !important; width:31.33% !important;">
                             <b>{{ __('messages.common.from') . ':' }}</b><br>

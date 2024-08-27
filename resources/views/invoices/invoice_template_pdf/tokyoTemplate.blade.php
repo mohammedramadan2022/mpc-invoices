@@ -62,11 +62,11 @@
                                     <p class="mb-1 font-color-gray fs-6">{{ __('messages.common.address') . ':' }}
                                         <span class="font-gray-900">{{ $client->address }} </span>
                                     </p>
-                                    @if (!empty($client->vat_no))
-                                        <p class="mb-1 font-color-gray fs-6">{{ getVatNoLabel() . ':' }}
-                                            <span class="font-gray-900">{{ $client->vat_no }} </span>
-                                        </p>
-                                    @endif
+{{--                                    @if (!empty($client->vat_no))--}}
+{{--                                        <p class="mb-1 font-color-gray fs-6">{{ getVatNoLabel() . ':' }}--}}
+{{--                                            <span class="font-gray-900">{{ $client->vat_no }} </span>--}}
+{{--                                        </p>--}}
+{{--                                    @endif--}}
                                 </td>
                                 <td width="36.33%">
                                     <p class="fs-6 mb-2 font-gray-900">
