@@ -54,6 +54,8 @@
                                     <p class="fs-6 mb-2 font-gray-900">
                                         <strong>{{ __('messages.common.to') . ':' }}</strong>
                                     </p>
+                                    <p class=" mb-1 font-color-gray fs-6">{{ __('messages.common.company') . ':' }} <span
+                                            class="font-gray-900">{{ $client->company_name }}</span></p>
                                     <p class=" mb-1 font-color-gray fs-6">{{ __('messages.common.name') . ':' }} <span
                                             class="font-gray-900">{{ $client->user->full_name }}</span></p>
                                     <p class="mb-1 font-color-gray fs-6">{{ __('messages.common.email') . ':' }}
@@ -61,6 +63,8 @@
                                     </p>
                                     <p class="mb-1 font-color-gray fs-6">{{ __('messages.common.address') . ':' }}
                                         <span class="font-gray-900">{{ $client->address }} </span>
+                                    </p> <p class="mb-1 font-color-gray fs-6">{{ __('messages.common.phone') . ':' }}
+                                        <span class="font-gray-900">{{ $client->user->contact }} </span>
                                     </p>
 {{--                                    @if (!empty($client->vat_no))--}}
 {{--                                        <p class="mb-1 font-color-gray fs-6">{{ getVatNoLabel() . ':' }}--}}
@@ -98,8 +102,8 @@
                                 </td>
                                 <td width="33.33%" class="text-end pt-7">
                                     <p class="mb-1 text-gray-600 fs-6"><strong
-                                            class="font-gray-900">{{ __('messages.invoice.invoice_id') . ':' }}
-                                        </strong>#{{ $invoice->invoice_id }}
+                                            class="font-gray-900">{{ __('messages.invoice.invoice') . ':' }}
+                                        </strong>{{ $invoice->invoice_id }}
                                     </p>
                                     <p class="mb-1 text-gray-600 fs-6"><strong
                                             class="font-gray-900">{{ __('messages.invoice.invoice_date') . ':' }}
@@ -119,15 +123,15 @@
                         <thead {{ $styleCss }}="background-color: {{ $invoice_template_color }};">
                             <tr>
                                 <th class="p-2" style="width:5% !important;">#</th>
-                                <th class="p-2 in-w-2">{{ __('messages.product.product') }}</th>
+                                <th class="p-2 in-w-2">{{ __('messages.Description') }}</th>
                                 <th class="p-2 text-center" style="width:9% !important;">
                                     {{ __('messages.invoice.qty') }}
                                 </th>
                                 <th class="p-2 text-center text-nowrap" style="width:15% !important;">
                                     {{ __('messages.product.unit_price') }}</th>
-                                <th class="p-2 text-center text-nowrap" style="width:13% !important;">
-                                    {{ __('messages.invoice.tax') . '(in %)' }}
-                                </th>
+{{--                                <th class="p-2 text-center text-nowrap" style="width:13% !important;">--}}
+{{--                                    {{ __('messages.invoice.tax') . '(in %)' }}--}}
+{{--                                </th>--}}
                                 <th class="p-2 text-end text-nowrap" style="width:14% !important;">
                                     {{ __('messages.invoice.amount') }}
                                 </th>
@@ -159,14 +163,14 @@
                                         <td class="text-center text-nowrap">
                                             {{ isset($invoiceItems->price) ? getInvoiceCurrencyAmount($invoiceItems->price, $invoice->currency_id, true) : __('messages.common.n/a') }}
                                         </td>
-                                        <td class="text-center text-nowrap">
-                                            @foreach ($invoiceItems->invoiceItemTax as $keys => $tax)
-                                                {{ $tax->tax ?? '--' }}
-                                                @if (!$loop->last)
-                                                    ,
-                                                @endif
-                                            @endforeach
-                                        </td>
+{{--                                        <td class="text-center text-nowrap">--}}
+{{--                                            @foreach ($invoiceItems->invoiceItemTax as $keys => $tax)--}}
+{{--                                                {{ $tax->tax ?? '--' }}--}}
+{{--                                                @if (!$loop->last)--}}
+{{--                                                    ,--}}
+{{--                                                @endif--}}
+{{--                                            @endforeach--}}
+{{--                                        </td>--}}
                                         <td class="text-end text-nowrap">
                                             {{ isset($invoiceItems->total) ? getInvoiceCurrencyAmount($invoiceItems->total, $invoice->currency_id, true) : __('messages.common.n/a') }}
                                         </td>
@@ -176,7 +180,7 @@
                         </tbody>
                     </table>
                 </div>
-                <div class="my-4">
+                <div class="my-4" >
                     <table class="ms-auto mb-10 text-end w-100">
                         <tr>
                             <td class="w-75"></td>
@@ -191,6 +195,7 @@
                                                 {{ getInvoiceCurrencyAmount($invoice->amount, $invoice->currency_id, true) }}
                                             </td>
                                         </tr>
+                                        @if ($invoice->discount > 0)
                                         <tr>
                                             <td class="py-1 px-0 font-dark-gray text-nowrap">
                                                 <strong>{{ __('messages.invoice.discount') . ':' }}</strong>
@@ -209,22 +214,23 @@
                                                 @endif
                                             </td>
                                         </tr>
-                                        <tr>
-                                            @php
-                                                $itemTaxesAmount = $invoice->amount + array_sum($totalTax);
-                                                $invoiceTaxesAmount =
-                                                    ($itemTaxesAmount * $invoice->invoiceTaxes->sum('value')) / 100;
-                                                $totalTaxes = array_sum($totalTax) + $invoiceTaxesAmount;
-                                            @endphp
-                                            <td class="pt-1 pb-2 px-0 font-dark-gray text-nowrap">
-                                                <strong>{{ __('messages.invoice.tax') . ':' }}</strong>
-                                            </td>
-                                            <td class="text-end font-gray-600 pt-1 pb-2 px-0 fw-bold text-nowrap">
-                                                {!! numberFormat($totalTaxes) != 0
-                                                    ? '<b class="euroCurrency">' . getInvoiceCurrencyAmount($totalTaxes, $invoice->currency_id, true) . '</b>'
-                                                    : __('messages.common.n/a') !!}
-                                            </td>
-                                        </tr>
+                                        @endif
+{{--                                        <tr>--}}
+{{--                                            @php--}}
+{{--                                                $itemTaxesAmount = $invoice->amount + array_sum($totalTax);--}}
+{{--                                                $invoiceTaxesAmount =--}}
+{{--                                                    ($itemTaxesAmount * $invoice->invoiceTaxes->sum('value')) / 100;--}}
+{{--                                                $totalTaxes = array_sum($totalTax) + $invoiceTaxesAmount;--}}
+{{--                                            @endphp--}}
+{{--                                            <td class="pt-1 pb-2 px-0 font-dark-gray text-nowrap">--}}
+{{--                                                <strong>{{ __('messages.invoice.tax') . ':' }}</strong>--}}
+{{--                                            </td>--}}
+{{--                                            <td class="text-end font-gray-600 pt-1 pb-2 px-0 fw-bold text-nowrap">--}}
+{{--                                                {!! numberFormat($totalTaxes) != 0--}}
+{{--                                                    ? '<b class="euroCurrency">' . getInvoiceCurrencyAmount($totalTaxes, $invoice->currency_id, true) . '</b>'--}}
+{{--                                                    : __('messages.common.n/a') !!}--}}
+{{--                                            </td>--}}
+{{--                                        </tr>--}}
                                         <tr>
                                             <td class="py-1 px-0 font-dark-gray text-nowrap">
                                                 <strong>{{ __('messages.invoice.total') . ':' }}</strong>

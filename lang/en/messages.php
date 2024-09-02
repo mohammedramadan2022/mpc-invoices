@@ -277,6 +277,8 @@ return [
         'profile' => 'Profile',
         'edit_user' => 'Edit User',
         'client' => 'Client',
+        'client_name' => 'Client Name',
+        'attention' => 'Attention',
         'reset_password' => 'Reset Password',
         'reset_your_password' => 'Reset Your Password',
         'add_client' => 'Add Client',

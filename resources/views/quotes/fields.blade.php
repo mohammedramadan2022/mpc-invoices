@@ -11,7 +11,7 @@
             <div class="" data-bs-toggle="tooltip" data-bs-trigger="hover" title=""
                  data-bs-original-title="Quote number">
                 <div class="form-group col-sm-12 mb-5">
-                    {{ Form::label('paid_amount', __('messages.quote.Quote') . ':', ['class' => 'form-label mb-3 required']) }}
+                    {{ Form::label('paid_amount', __('messages.quote.quote') . ':', ['class' => 'form-label mb-3 required']) }}
                     <div class="input-group">
                         @if (!empty(getQuoteNoPrefix()))
                             <a class="input-group-text bg-secondary border-0 text-decoration-none text-black"
@@ -67,7 +67,7 @@
                 <thead>
                     <tr class="border-bottom fs-7 fw-bolder text-gray-700 text-uppercase">
                         <th scope="col">#</th>
-                        <th scope="col" class="required">{{ __('messages.product.product') }}</th>
+                        <th scope="col" class="required">{{ __('messages.Description') }}</th>
                         <th scope="col" class="required">{{ __('messages.quote.qty') }}</th>
                         <th scope="col" class="required">{{ __('messages.product.unit_price') }}</th>
                         <th scope="col" class="required">{{ __('messages.quote.amount') }}</th>
