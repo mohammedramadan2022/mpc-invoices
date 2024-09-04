@@ -1,4 +1,8 @@
 <div class="dropup position-static" wire:key="{{ $row->id }}">
+
+    <a class="px-2" href="{{ route('quotes.pdf', $row->id) }}" target="_blank"><i
+            class="fa-solid fa-download fs-2"></i></a>
+
     <button wire:key="quote-{{ $row->id }}" type="button" title="Action"
         class="dropdown-toggle hide-arrow btn px-2 text-primary fs-3 pe-0" id="dropdownMenuButton1"
         data-bs-toggle="dropdown" data-bs-boundary="viewport" aria-expanded="false">

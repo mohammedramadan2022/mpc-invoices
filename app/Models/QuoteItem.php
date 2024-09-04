@@ -40,7 +40,7 @@ class QuoteItem extends Model
      * @var array
      */
     public static $messages = [
-        'product_id.required' => 'The product field is required',
+        'product_name.required' => 'The product field is required',
     ];
 
     protected $table = 'quote_items';

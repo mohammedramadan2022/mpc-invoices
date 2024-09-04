@@ -35,6 +35,25 @@
         .amount-table .value {
             text-align: left;
         }
+
+        .footer {
+            width: 100%;
+            text-align: center;
+            margin-top: 50px;
+            padding-top: 10px;
+            border-top: 1px solid #ccc;
+            font-size: 12px;
+        }
+
+        .footer i {
+            margin-right: 5px;
+        }
+
+        .footer p {
+            margin: 0;
+            display: inline-block;
+            padding: 0 15px;
+        }
     </style>
 </head>
 
@@ -257,10 +276,9 @@
 </div>
 
 <div class="footer">
-    <p><strong>{{ __('messages.setting.company_name') }}:</strong> </p>
-    <p><strong>{{ __('messages.common.address') }}:</strong> {{ $setting['company_address'] }}</p>
-    <p><strong>{{ __('messages.user.phone') }}:</strong> {{ $setting['company_phone'] }}</p>
-    <p><strong>{{ __('messages.common.email') }}:</strong> {{ $setting['company_email'] }}</p>
+    <p><i class="fas fa-phone-alt"></i> +123 456 7890</p>
+    <p><i class="fas fa-envelope"></i> info@example.com</p>
+    <p><i class="fas fa-map-marker-alt"></i> 123 Main St, Anytown, USA</p>
 </div>
 </body>
 

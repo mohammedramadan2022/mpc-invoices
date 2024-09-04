@@ -2,12 +2,16 @@
 <tr class="border-bottom border-bottom-dashed tax-tr">
     <td class="text-center item-number align-center">1</td>
     <td class="table__item-desc w-25">
-        <select class="form-select productId product  fw-bold" name="product_id[]" 'data-control' => 'select2' required>
-            <option selected="selected" value="">Select Product or Enter free text</option>
-            {{for products}}
-                <option value="{{:key}}">{{:value}}</option>
-            {{/for}}
-        </select>
+<!--        <select class="form-select productId product  fw-bold" name="product_id[]" 'data-control' => 'select2' required>-->
+<!--            <option selected="selected" value="">Select Product or Enter free text</option>-->
+<!--            {{for products}}-->
+<!--                <option value="{{:key}}">{{:value}}</option>-->
+<!--            {{/for}}-->
+<!--        </select>-->
+
+
+           <input type="text" name="product_name[]" value="" class="form-control form-control-solid" required placeholder="">
+
     </td>
     <td class="table__qty">
         <input class="form-control qty " required="" name="quantity[]" type="number" min="0" step=".01" oninput="validity.valid||(value=value.replace(/[e\+\-]/gi,''))">

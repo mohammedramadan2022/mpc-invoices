@@ -77,7 +77,7 @@
             <thead>
                 <tr class="border-bottom fs-7 fw-bolder text-gray-700 text-uppercase">
                     <th scope="col">#</th>
-                    <th scope="col" class="required">{{ __('messages.product.product') }}</th>
+                    <th scope="col" class="required">{{ __('messages.Description') }}</th>
                     <th scope="col" class="required">{{ __('messages.invoice.qty') }}</th>
                     <th scope="col" class="required">{{ __('messages.product.unit_price') }}</th>
                     <th scope="col">{{ __('messages.invoice.tax') }}</th>
@@ -93,7 +93,9 @@
                     <tr class="tax-tr">
                         <td class="text-center item-number align-center">{{ $i++ }}</td>
                         <td class="table__item-desc w-25">
-                            {{ Form::select('product_id[]', $products, isset($invoiceItem->product_id) ? $invoiceItem->product_id : $invoiceItem->product_name ?? [], ['class' => 'form-select productId product io-select2', 'required', 'placeholder' => __('messages.flash.select_product_or_enter_free_text'), 'data-control' => 'select2']) }}
+                            {{ Form::select('product_name[]', $products, isset($invoiceItem->product_id) ? $invoiceItem->product_id : $invoiceItem->product_name ?? [], ['class' => 'form-control form-control-solid', 'required', 'required', 'placeholder' => __('messages.flash.select_product_or_enter_free_text')]) }}
+
+
                             {{ Form::hidden('id[]', $invoiceItem->id) }}
                         </td>
                         <td class="table__qty">

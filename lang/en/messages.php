@@ -440,7 +440,7 @@ return [
         'terms_not_found' => 'Terms Not Found',
         'make_payment' => 'Make Payment',
         'excel_export' => 'Excel Export',
-        'quote_name' => 'Quote',
+        'quote_name' => 'QUOTATION',
         'client_id_required' => 'The Client ID is required.',
     ],
 
