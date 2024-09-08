@@ -36,14 +36,39 @@
             text-align: left;
         }
 
+        .footer-stamp-container {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            padding: 100px; /* Add padding around the stamp image */
+            /*z-index: 10; !* Ensure the stamp is above other content *!*/
+        }
+
+        .footer-stamp {
+            width: 150px; /* Adjust the width as needed */
+            height: auto;
+        }
+
         .footer {
             width: 100%;
             text-align: center;
-            margin-top: 50px;
+            position: fixed;
+            bottom: 0;
+            left: 0;
             padding-top: 10px;
-            border-top: 1px solid #ccc;
             font-size: 12px;
+            background-color: #fff; /* Add background to cover content if needed */
+            overflow: hidden; /* Hide any overflow content */
+            z-index: 1; /* Ensure the footer is behind the stamp */
         }
+
+        .footer img {
+            width: 100% !important; /* Adjust the image width as needed */
+            /*max-width: 200px; !* Example maximum width *!*/
+            height: auto;
+            padding-bottom: 10px;
+        }
+
 
         .footer i {
             margin-right: 5px;
@@ -54,6 +79,34 @@
             display: inline-block;
             padding: 0 15px;
         }
+
+        body {
+            background: url('{{ asset('images/watermark.png') }}') no-repeat center center;
+            background-size: contain;
+            /*opacity: 0.1; !* Adjust opacity for watermark effect *!*/
+            position: relative;
+        }
+
+        .preview-main {
+            position: relative;
+            z-index: 1; /* Ensure content is above the watermark */
+        }
+
+
+
+        .client-preview .img-logo {
+            width: 250px !important;
+            max-width: none !important;
+            max-height: none !important;
+            height: 100px !important;
+        }
+
+        .client-preview td {
+            width: auto;
+            padding: 0;
+        }
+
+
     </style>
 </head>
 
@@ -62,14 +115,15 @@
 <div class="preview-main client-preview tokyo-template">
     <div class="d" id="boxes">
         <div class="">
-            <table class="mb-3 w-100">
+            <table class="dmb-3 w-100">
                 <tr>
-                    <td class="">
-                        <img width="100px" src="{{ getLogoUrl() }}" class="img-logo" alt="logo">
+                    <td class="" >
+                        <img  src="{{ getLogoUrl() }}" class="img-logo" alt="logo">
                     </td>
+
                     <td class="heading-text">
                         <div class="text-end">
-                            <h1 class="m-0 text-black" {{ $styleCss }}="color:{{ $invoice_template_color }}">
+                            <h3 class="m-0 text-black bold" {{ $styleCss }}="color:{{ $invoice_template_color }}">
                             {{ __('messages.quote.quote_name') }}</h1>
                         </div>
                     </td>
@@ -275,10 +329,14 @@
     </div>
 </div>
 
+
+{{--<div class="footer-stamp-container">--}}
+{{--    <img src="{{ asset('images/stamp.png') }}" alt="Stamp Image" class="footer-stamp">--}}
+{{--</div>--}}
+
 <div class="footer">
-    <p><i class="fas fa-phone-alt"></i> +123 456 7890</p>
-    <p><i class="fas fa-envelope"></i> info@example.com</p>
-    <p><i class="fas fa-map-marker-alt"></i> 123 Main St, Anytown, USA</p>
+    <img src="{{ asset('images/footer.png') }}" alt="Footer Image">
+
 </div>
 </body>
 
