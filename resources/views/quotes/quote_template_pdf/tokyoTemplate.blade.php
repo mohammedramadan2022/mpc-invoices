@@ -346,9 +346,9 @@
     </div>
 
 
-    {{-- <div class="footer-stamp-container"> --}}
-    {{--    <img src="{{ asset('images/stamp.png') }}" alt="Stamp Image" class="footer-stamp"> --}}
-    {{-- </div> --}}
+     <div class="footer-stamp-container">
+        <img src="{{ asset('images/stamp.png') }}" alt="Stamp Image" class="footer-stamp">
+     </div>
 
     <div class="footer">
         <img src="{{ asset('images/footer.png') }}" alt="Footer Image">
