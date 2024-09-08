@@ -47,6 +47,21 @@
             {{ Form::select('status', getTranslatedData($statusArr), null, ['class' => 'form-select io-select2', 'id' => 'status', 'required', 'data-control' => 'select2']) }}
         </div>
     </div>
+
+    <div class="col-lg-4 col-sm-12">
+        <div class="mb-5">
+            {{ Form::label('shop name', __('messages.common.shop_name') . ':', ['class' => 'form-label required mb-3']) }}
+            {{ Form::text('shop_name', null, ['class' => 'form-control form-control-solid', 'placeholder' => __('messages.common.shop_name'), 'required']) }}
+
+        </div>
+    </div>
+    <div class="col-lg-4 col-sm-12">
+        <div class="mb-5">
+            {{ Form::label('location', __('messages.common.location') . ':', ['class' => 'form-label required mb-3']) }}
+            {{ Form::text('location', null,  ['class' => 'form-control form-control-solid', 'placeholder' => __('messages.common.location'), 'required']) }}
+
+        </div>
+    </div>
     <div class="mb-5 col-lg-4 col-sm-12">
         {{ Form::label('templateId', __('messages.setting.invoice_template') . ':', ['class' => 'form-label mb-3']) }}
         {{ Form::select('template_id', $template, getInvoiceSettingTemplateId() ?? null, ['class' => 'form-select io-select2', 'id' => 'templateId', 'required', 'data-control' => 'select2']) }}

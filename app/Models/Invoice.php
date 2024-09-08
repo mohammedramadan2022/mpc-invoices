@@ -149,12 +149,16 @@ class Invoice extends Model
         'invoice_id' => 'required|unique:invoices,invoice_id',
         'invoice_date' => 'required',
         'due_date' => 'required',
+        'shop_name' => 'required',
+        'location' => 'required',
     ];
 
     public static $messages = [
         'client_id.required' => 'The Client field is required.',
         'invoice_date.required' => 'The invoice date field is required.',
         'due_date' => 'The invoice Due date field is required.',
+        'shop_name' => 'The shop name field is required.',
+        'location' => 'The location field is required.',
     ];
 
     public $table = 'invoices';
@@ -180,6 +184,8 @@ class Invoice extends Model
         'recurring_cycle',
         'last_recurring_on',
         'parent_id',
+        'shop_name',
+        'location',
     ];
 
     protected $casts = [
@@ -201,6 +207,8 @@ class Invoice extends Model
         'recurring_cycle' => 'integer',
         'last_recurring_on' => 'date',
         'tax' => 'double',
+        'shop_name' => 'string',
+        'location' => 'string',
     ];
 
     public function getStatusLabelAttribute(): string

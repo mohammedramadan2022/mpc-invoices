@@ -22,6 +22,22 @@
         </div>
     </div>
 </div>
+
+
+<div class="col-lg-4 col-sm-12">
+    <div class="mb-5">
+        {{ Form::label('shop name', __('messages.common.shop_name') . ':', ['class' => 'form-label required mb-3']) }}
+        {{ Form::text('shop_name', isset($invoice) ? $invoice->shop_name : null, ['class' => 'form-control form-control-solid', 'placeholder' => __('messages.common.shop_name'), 'required']) }}
+
+    </div>
+</div>
+<div class="col-lg-4 col-sm-12">
+    <div class="mb-5">
+        {{ Form::label('location', __('messages.common.location') . ':', ['class' => 'form-label required mb-3']) }}
+        {{ Form::text('location', isset($invoice) ? $invoice->location : null,  ['class' => 'form-control form-control-solid', 'placeholder' => __('messages.common.location'), 'required']) }}
+
+    </div>
+</div>
 <div class="row mb-2">
     <div class="mb-5 col-lg-3 col-sm-12">
         {{ Form::label('invoice_date', __('messages.invoice.invoice_date') . ':', ['class' => 'form-label required mb-3']) }}

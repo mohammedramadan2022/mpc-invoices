@@ -147,6 +147,13 @@
                             <p class="mb-1 font-color-gray fs-6">{{ __('messages.common.address') . ':' }}
                                 <span class="font-gray-900">{{ $client->address }} </span>
                             </p>
+
+                            <p     class = "mb-1 font-color-gray fs-6">{{ __('messages.common.shop_name') . ':' }}
+                                <span  class = "font-gray-900">{{ $invoice->shop_name }} </span>
+                            </p>
+                            <p class = "mb-1 font-color-gray fs-6">{{ __('messages.common.location') . ':' }}
+                                <span  class = "font-gray-900">{{ $invoice->location }} </span>
+                            </p>
                             {{--                                    @if (!empty($client->vat_no))--}}
                             {{--                                        <p class="mb-1 font-color-gray fs-6">{{ getVatNoLabel() . ':' }}--}}
                             {{--                                            <span class="font-gray-900">{{ $client->vat_no }} </span>--}}

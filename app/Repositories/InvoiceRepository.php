@@ -192,7 +192,7 @@ class InvoiceRepository extends BaseRepository
             $input['client_id'] = Client::whereUserId($input['client_id'])->first()->id;
             $input = Arr::only($input, [
                 'client_id', 'invoice_id', 'invoice_date', 'due_date', 'discount_type', 'discount', 'amount', 'final_amount',
-                'note', 'term', 'template_id', 'payment_qr_code_id', 'status', 'tax_id', 'tax', 'currency_id', 'recurring_status', 'recurring_cycle',
+                'note', 'term', 'template_id', 'payment_qr_code_id', 'status','shop_name','location', 'tax_id', 'tax', 'currency_id', 'recurring_status', 'recurring_cycle',
             ]);
             $invoice = Invoice::create($input);
 
