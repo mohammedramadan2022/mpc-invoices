@@ -157,10 +157,10 @@
                                     <p class    = "mb-1 font-color-gray fs-6">{{ __('messages.user.phone') . ':' }}
                                         <span class    = "font-gray-900">{{ $client->user->contact }} </span>
                                     </p>
-                                    <p     class = "mb-1 font-color-gray fs-6">{{ __('messages.comomon.shop_name') . ':' }}
+                                    <p     class = "mb-1 font-color-gray fs-6">{{ __('messages.common.shop_name') . ':' }}
                                     <span  class = "font-gray-900">{{ $quote->shop_name }} </span>
                                     </p>
-                                    <p class = "mb-1 font-color-gray fs-6">{{ __('messages.comomon.location') . ':' }}
+                                    <p class = "mb-1 font-color-gray fs-6">{{ __('messages.common.location') . ':' }}
                                     <span  class = "font-gray-900">{{ $quote->location }} </span>
                                     </p>
                                     {{--                                    @if (!empty($client->vat_no)) --}}

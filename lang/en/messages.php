@@ -174,7 +174,7 @@ return [
         'hello'               => 'Hello',
         'scan_to_pay'         => 'Scan To Pay',
         'shop_name'           => 'shop name',
-        'location'           => 'location',
+        'location'            => 'location',
     ],
 
     'user' => [

@@ -134,7 +134,7 @@ class QuoteRepository extends BaseRepository
             $input['client_id'] = Client::whereUserId($input['client_id'])->first()->id;
             $input = Arr::only($input, [
                 'client_id', 'quote_id', 'quote_date', 'due_date', 'discount_type', 'discount', 'final_amount',
-                'note', 'term', 'template_id', 'status',
+                'note', 'term', 'template_id', 'status','shop_name','location'
             ]);
             $quote = Quote::create($input);
             $totalAmount = 0;
@@ -212,7 +212,7 @@ class QuoteRepository extends BaseRepository
                 [
                     'client_id', 'quote_date', 'due_date', 'discount_type', 'discount', 'final_amount', 'note',
                     'term', 'template_id', 'price',
-                    'status',
+                    'status','shop_name','location'
                 ]), $quoteId);
             $totalAmount = 0;
 
