@@ -9,20 +9,20 @@
     <div class="col-lg-4 col-sm-12 mb-lg-0 mb-5">
         @if (!empty(getQuoteNoPrefix()) || !empty(getQuoteNoSuffix()))
             <div class="" data-bs-toggle="tooltip" data-bs-trigger="hover" title=""
-                 data-bs-original-title="Quote number">
+                data-bs-original-title="Quote number">
                 <div class="form-group col-sm-12 mb-5">
                     {{ Form::label('paid_amount', __('messages.quote.quote') . ':', ['class' => 'form-label mb-3 required']) }}
                     <div class="input-group">
                         @if (!empty(getQuoteNoPrefix()))
                             <a class="input-group-text bg-secondary border-0 text-decoration-none text-black"
-                               data-toggle="tooltip" data-placement="right" title="Quote No Prefix">
+                                data-toggle="tooltip" data-placement="right" title="Quote No Prefix">
                                 {{ getQuoteNoPrefix() }}
                             </a>
                         @endif
                         {{ Form::text('quote_id', null, ['class' => 'form-control', 'required', 'id' => 'quoteId', 'maxlength' => 6, 'onkeypress' => 'return blockSpecialChar(event)']) }}
                         @if (!empty(getQuoteNoSuffix()))
                             <a class="input-group-text bg-secondary border-0 text-decoration-none text-black"
-                               data-toggle="tooltip" data-placement="right" title="quote No Suffix">
+                                data-toggle="tooltip" data-placement="right" title="quote No Suffix">
                                 {{ getQuoteNoSuffix() }}
                             </a>
                         @endif
@@ -33,6 +33,8 @@
             <div data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-original-title="quote number">
                 <span class="form-label">{{ __('messages.qoute.qoute') }} #</span>
                 {{ Form::text('quote_id', \App\Models\Quote::generateUniqueQuoteId(), ['class' => 'form-control mt-3', 'required', 'id' => 'quoteId', 'maxlength' => 6, 'onkeypress' => 'return blockSpecialChar(event)']) }}
+
+
             </div>
         @endif
     </div>
@@ -47,13 +49,27 @@
         {{ Form::text('due_date', null, ['class' => 'form-select', 'id' => 'due_date', 'autocomplete' => 'off', 'required']) }}
 
     </div>
-    <div class="col-lg-4 col-sm-12">
-        <div class="mb-5">
+    <div class = "col-lg-4 col-sm-12">
+        <div class = "mb-5">
             {{ Form::label('status', __('messages.common.status') . ':', ['class' => 'form-label required mb-3']) }}
             {{ Form::select('status', getTranslatedData($statusArr), null, ['class' => 'form-select io-select2', 'id' => 'status', 'required', 'data-control' => 'select2']) }}
         </div>
     </div>
-    <div class="mb-5 col-lg-4 col-sm-12">
+    <div class = "col-lg-4 col-sm-12">
+    <div class = "mb-5">
+            {{ Form::label('shop name', __('messages.common.shop_name') . ':', ['class' => 'form-label required mb-3']) }}
+            {{ Form::text('shop_name', null, null, ['class' => 'form-control form-control-solid', 'placeholder' => __('messages.common.shop_name'), 'required']) }}
+
+        </div>
+    </div>
+    <div class = "col-lg-4 col-sm-12">
+    <div   class      = "mb-5">
+            {{ Form::label('location', __('messages.common.location') . ':', ['class' => 'form-label required mb-3']) }}
+            {{ Form::text('location', null, null, ['class' => 'form-control form-control-solid', 'placeholder' => __('messages.common.location'), 'required']) }}
+
+        </div>
+    </div>
+    <div class = "mb-5 col-lg-4 col-sm-12">
         {{ Form::label('templateId', __('messages.setting.invoice_template') . ':', ['class' => 'form-label mb-3']) }}
         {{ Form::select('template_id', $template, \App\Models\Setting::DEFAULT_TEMPLATE ?? null, ['class' => 'form-select io-select2', 'id' => 'templateId', 'required', 'data-control' => 'select2']) }}
     </div>
@@ -78,7 +94,7 @@
                     <tr class="tax-tr">
                         <td class="text-center item-number align-center">1</td>
                         <td class="table__item-desc w-25">
-{{--                             {{ Form::select('product_id[]', $products, null, ['class' => 'form-select product-quote io-select2', 'required', 'placeholder' => __('messages.flash.select_product_or_enter_free_text'), 'data-control' => 'select2']) }}--}}
+                            {{--                             {{ Form::select('product_id[]', $products, null, ['class' => 'form-select product-quote io-select2', 'required', 'placeholder' => __('messages.flash.select_product_or_enter_free_text'), 'data-control' => 'select2']) }} --}}
                             {{ Form::text('product_name[]', null, ['class' => 'form-control form-control-solid', 'required', 'placeholder' => __('messages.flash.select_product_or_enter_free_text')]) }}
                         </td>
                         <td class="table__qty">

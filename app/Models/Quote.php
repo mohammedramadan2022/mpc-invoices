@@ -111,16 +111,20 @@ class Quote extends Model
      * @var array
      */
     public static $rules = [
-        'client_id' => 'required',
-        'quote_id' => 'required|unique:quotes,quote_id',
+        'client_id'  => 'required',
+        'quote_id'   => 'required|unique:quotes,quote_id',
         'quote_date' => 'required',
-        'due_date' => 'required',
+        'due_date'   => 'required',
+        'shop_name'  => 'required',
+        'location'  => 'required',
     ];
 
     public static $messages = [
-        'client_id.required' => 'The Client field is required.',
+        'client_id.required'  => 'The Client field is required.',
         'quote_date.required' => 'The Quote date field is required.',
-        'due_date' => 'The Quote Due date field is required.',
+        'due_date'            => 'The Quote Due date field is required.',
+        'shop_name'           => 'The shop name field is required.',
+        'location'           => 'The  location field is required.',
     ];
 
     public $table = 'quotes';
@@ -140,22 +144,26 @@ class Quote extends Model
         'term',
         'template_id',
         'status',
+        'shop_name',
+        'location',
     ];
 
     protected $casts = [
-        'client_id' => 'integer',
-        'quote_date' => 'date',
-        'due_date' => 'date',
-        'quote_id' => 'string',
-        'amount' => 'double',
+        'client_id'     => 'integer',
+        'quote_date'    => 'date',
+        'due_date'      => 'date',
+        'quote_id'      => 'string',
+        'amount'        => 'double',
         'discount_type' => 'integer',
-        'discount' => 'double',
-        'final_amount' => 'double',
-        'note' => 'string',
-        'term' => 'string',
-        'template_id' => 'integer',
-        'status' => 'integer',
-        'recurring' => 'integer',
+        'discount'      => 'double',
+        'final_amount'  => 'double',
+        'note'          => 'string',
+        'term'          => 'string',
+        'template_id'   => 'integer',
+        'status'        => 'integer',
+        'recurring'     => 'integer',
+        'shop_name'     => 'string',
+        'location'     => 'string',
     ];
 
     public function getStatusLabelAttribute(): string
