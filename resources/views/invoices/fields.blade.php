@@ -105,8 +105,10 @@
                         <th scope="col">#</th>
                         <th scope="col" class="required">{{ __('messages.Description') }}</th>
                         <th scope="col" class="required">{{ __('messages.invoice.qty') }}</th>
+                        <th scope="col" class="required">{{ __('messages.common.unit') }}</th>
+
                         <th scope="col" class="required">{{ __('messages.product.unit_price') }}</th>
-                        <th scope="col">{{ __('messages.invoice.tax') }}</th>
+{{--                        <th scope="col">{{ __('messages.invoice.tax') }}</th>--}}
                         <th scope="col" class="required">{{ __('messages.invoice.amount') }}</th>
                         <th scope="col" class="text-end">{{ __('messages.common.action') }}</th>
                     </tr>
@@ -122,18 +124,22 @@
                         <td class="table__qty">
                             {{ Form::number('quantity[]', null, ['class' => 'form-control qty ', 'required', 'type' => 'number', 'min' => '0', 'step' => '.01', 'oninput' => "validity.valid||(value=value.replace(/[e\+\-]/gi,''))"]) }}
                         </td>
+                        <td class="table__item-desc w-25">
+                            {{--                             {{ Form::select('product_id[]', $products, null, ['class' => 'form-select product-quote io-select2', 'required', 'placeholder' => __('messages.flash.select_product_or_enter_free_text'), 'data-control' => 'select2']) }} --}}
+                            {{ Form::text('unit[]', null, ['class' => 'form-control form-control-solid', 'required', 'placeholder' => __('messages.flash.select_unit_or_enter_free_text')]) }}
+                        </td>
                         <td>
                             {{ Form::number('price[]', null, ['class' => 'form-control price-input price ', 'oninput' => "validity.valid||(value=value.replace(/[e\+\-]/gi,''))", 'min' => '0', 'value' => '0', 'step' => '.01', 'pattern' => "^\d*(\.\d{0,2})?$", 'required', 'onKeyPress' => 'if(this.value.length==8) return false;']) }}
                         </td>
-                        <td>
-                            <select name="tax[]" class='form-select io-select2 fw-bold tax' data-control='select2'
-                                multiple="multiple">
-                                @foreach ($taxes as $tax)
-                                    <option value="{{ $tax->value }}" data-id="{{ $tax->id }}"
-                                        {{ $defaultTax == $tax->id ? 'selected' : '' }}>{{ $tax->name }}</option>
-                                @endforeach
-                            </select>
-                        </td>
+{{--                        <td>--}}
+{{--                            <select name="tax[]" class='form-select io-select2 fw-bold tax' data-control='select2'--}}
+{{--                                multiple="multiple">--}}
+{{--                                @foreach ($taxes as $tax)--}}
+{{--                                    <option value="{{ $tax->value }}" data-id="{{ $tax->id }}"--}}
+{{--                                        {{ $defaultTax == $tax->id ? 'selected' : '' }}>{{ $tax->name }}</option>--}}
+{{--                                @endforeach--}}
+{{--                            </select>--}}
+{{--                        </td>--}}
                         <td class="text-end item-total pt-8 text-nowrap">
                             @if (!getSettingValue('currency_after_amount'))
                                 <span class="invoice-selected-currency">{{ getCurrencySymbol() }}</span>
@@ -163,16 +169,16 @@
                         </div>
                     </div>
                 </div>
-                <div class="mb-2 col-xl-5 col-lg-8 col-sm-12 float-right">
-                    {{ Form::label('tax2', __('messages.invoice.tax') . ':', ['class' => 'form-label mb-1']) }}
-                    <select name="taxes[]" class='form-select io-select2 fw-bold invoice-taxes' data-control='select2'
-                        multiple="multiple">
-                        @foreach ($taxes as $tax)
-                            <option value="{{ $tax->id }}" data-tax="{{ $tax->value }}">{{ $tax->name }}
-                            </option>
-                        @endforeach
-                    </select>
-                </div>
+{{--                <div class="mb-2 col-xl-5 col-lg-8 col-sm-12 float-right">--}}
+{{--                    {{ Form::label('tax2', __('messages.invoice.tax') . ':', ['class' => 'form-label mb-1']) }}--}}
+{{--                    <select name="taxes[]" class='form-select io-select2 fw-bold invoice-taxes' data-control='select2'--}}
+{{--                        multiple="multiple">--}}
+{{--                        @foreach ($taxes as $tax)--}}
+{{--                            <option value="{{ $tax->id }}" data-tax="{{ $tax->value }}">{{ $tax->name }}--}}
+{{--                            </option>--}}
+{{--                        @endforeach--}}
+{{--                    </select>--}}
+{{--                </div>--}}
             </div>
             <div class="col-xxl-3 col-lg-5 col-md-6 ms-md-auto mt-4 mb-lg-10 mb-6">
                 <div class="border-top">
@@ -204,19 +210,19 @@
                                     @endif
                                 </td>
                             </tr>
-                            <tr>
-                                <td class="ps-0">{{ __('messages.invoice.total_tax') . ':' }}</td>
-                                <td class="text-gray-900 text-end pe-0">
-                                    @if (!getSettingValue('currency_after_amount'))
-                                        <span class="invoice-selected-currency">{{ getCurrencySymbol() }}</span>
-                                    @endif <span id="totalTax">
-                                        0
-                                    </span>
-                                    @if (getSettingValue('currency_after_amount'))
-                                        <span class="invoice-selected-currency">{{ getCurrencySymbol() }}</span>
-                                    @endif
-                                </td>
-                            </tr>
+{{--                            <tr>--}}
+{{--                                <td class="ps-0">{{ __('messages.invoice.total_tax') . ':' }}</td>--}}
+{{--                                <td class="text-gray-900 text-end pe-0">--}}
+{{--                                    @if (!getSettingValue('currency_after_amount'))--}}
+{{--                                        <span class="invoice-selected-currency">{{ getCurrencySymbol() }}</span>--}}
+{{--                                    @endif <span id="totalTax">--}}
+{{--                                        0--}}
+{{--                                    </span>--}}
+{{--                                    @if (getSettingValue('currency_after_amount'))--}}
+{{--                                        <span class="invoice-selected-currency">{{ getCurrencySymbol() }}</span>--}}
+{{--                                    @endif--}}
+{{--                                </td>--}}
+{{--                            </tr>--}}
                             <tr>
                                 <td class="ps-0">{{ __('messages.invoice.total') . ':' }}</td>
                                 <td class="text-gray-900 text-end pe-0">

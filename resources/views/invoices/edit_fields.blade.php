@@ -95,8 +95,10 @@
                     <th scope="col">#</th>
                     <th scope="col" class="required">{{ __('messages.Description') }}</th>
                     <th scope="col" class="required">{{ __('messages.invoice.qty') }}</th>
+                    <th scope="col" class="required">{{ __('messages.common.unit') }}</th>
+
                     <th scope="col" class="required">{{ __('messages.product.unit_price') }}</th>
-                    <th scope="col">{{ __('messages.invoice.tax') }}</th>
+{{--                    <th scope="col">{{ __('messages.invoice.tax') }}</th>--}}
                     <th scope="col" class="required">{{ __('messages.invoice.amount') }}</th>
                     <th scope="col" class="text-end">{{ __('messages.common.action') }}</th>
                 </tr>
@@ -117,31 +119,35 @@
                         <td class="table__qty">
                             {{ Form::number('quantity[]', number_format($invoiceItem->quantity, 2), ['class' => 'form-control qty ', 'id' => 'qty', 'required', 'type' => 'number', 'min' => '0', 'step' => '.01', 'oninput' => "validity.valid||(value=value.replace(/[e\+\-]/gi,''))"]) }}
                         </td>
+                        <td class="table__item-desc w-25">
+                            {{--                             {{ Form::select('product_id[]', $products, null, ['class' => 'form-select product-quote io-select2', 'required', 'placeholder' => __('messages.flash.select_product_or_enter_free_text'), 'data-control' => 'select2']) }} --}}
+                            {{ Form::text('unit[]', $invoiceItem->unit, ['class' => 'form-control form-control-solid','required' => true, 'placeholder' => __('messages.flash.select_unit_or_enter_free_text')]) }}
+                        </td>
                         <td>
                             {{ Form::number('price[]', $invoiceItem->price, ['class' => 'form-control price-input price ', 'oninput' => "validity.valid||(value=value.replace(/[e\+\-]/gi,''))", 'min' => '0', 'step' => '.01', 'required', 'onKeyPress' => 'if(this.value.length==8) return false;']) }}
                         </td>
-                        <td>
-                            <select name="tax[]" class='form-select  fw-bold tax io-select2' data-control='select2'
-                                multiple="multiple">
-                                @foreach ($taxes as $tax)
-                                    @if (empty($selectedTaxes))
-                                        <option value="{{ $tax->value }}" data-id="{{ $tax->id }}">
-                                            {{ $tax->name }}
-                                        </option>
-                                    @elseif(in_array($tax->id, $selectedTaxes[$invoiceItem->id]))
-                                        <option value="{{ $tax->value }}"
-                                            {{ in_array($tax->id, $selectedTaxes[$invoiceItem->id]) && in_array($tax->id, $selectedTaxes[$invoiceItem->id]) ? 'selected' : '' }}
-                                            data-id="{{ $tax->id }}">
-                                            {{ $tax->name }}
-                                        </option>
-                                    @else
-                                        <option value="{{ $tax->value }}" data-id="{{ $tax->id }}">
-                                            {{ $tax->name }}
-                                        </option>
-                                    @endif
-                                @endforeach
-                            </select>
-                        </td>
+{{--                        <td>--}}
+{{--                            <select name="tax[]" class='form-select  fw-bold tax io-select2' data-control='select2'--}}
+{{--                                multiple="multiple">--}}
+{{--                                @foreach ($taxes as $tax)--}}
+{{--                                    @if (empty($selectedTaxes))--}}
+{{--                                        <option value="{{ $tax->value }}" data-id="{{ $tax->id }}">--}}
+{{--                                            {{ $tax->name }}--}}
+{{--                                        </option>--}}
+{{--                                    @elseif(in_array($tax->id, $selectedTaxes[$invoiceItem->id]))--}}
+{{--                                        <option value="{{ $tax->value }}"--}}
+{{--                                            {{ in_array($tax->id, $selectedTaxes[$invoiceItem->id]) && in_array($tax->id, $selectedTaxes[$invoiceItem->id]) ? 'selected' : '' }}--}}
+{{--                                            data-id="{{ $tax->id }}">--}}
+{{--                                            {{ $tax->name }}--}}
+{{--                                        </option>--}}
+{{--                                    @else--}}
+{{--                                        <option value="{{ $tax->value }}" data-id="{{ $tax->id }}">--}}
+{{--                                            {{ $tax->name }}--}}
+{{--                                        </option>--}}
+{{--                                    @endif--}}
+{{--                                @endforeach--}}
+{{--                            </select>--}}
+{{--                        </td>--}}
                         <td class="text-end item-total pt-8 text-nowrap">
                             {{ number_format($invoiceItem->total, 2) }}
                         </td>
@@ -167,17 +173,17 @@
                     </div>
                 </div>
             </div>
-            <div class="mb-2 col-xl-5 col-lg-8 col-sm-12">
-                {{ Form::label('taxes', __('messages.invoice.tax') . ':', ['class' => 'form-label mb-1']) }}
-                <select name="taxes[]" class='form-select io-select2 fw-bold invoice-taxes' data-control='select2'
-                    multiple="multiple">
-                    @foreach ($taxes as $tax)
-                        <option value="{{ $tax->id }}" data-tax="{{ $tax->value }}"
-                            {{ in_array($tax->id, $selectedInvoiceTaxes) ? 'selected' : '' }}>{{ $tax->name }}
-                        </option>
-                    @endforeach
-                </select>
-            </div>
+{{--            <div class="mb-2 col-xl-5 col-lg-8 col-sm-12">--}}
+{{--                {{ Form::label('taxes', __('messages.invoice.tax') . ':', ['class' => 'form-label mb-1']) }}--}}
+{{--                <select name="taxes[]" class='form-select io-select2 fw-bold invoice-taxes' data-control='select2'--}}
+{{--                    multiple="multiple">--}}
+{{--                    @foreach ($taxes as $tax)--}}
+{{--                        <option value="{{ $tax->id }}" data-tax="{{ $tax->value }}"--}}
+{{--                            {{ in_array($tax->id, $selectedInvoiceTaxes) ? 'selected' : '' }}>{{ $tax->name }}--}}
+{{--                        </option>--}}
+{{--                    @endforeach--}}
+{{--                </select>--}}
+{{--            </div>--}}
         </div>
         <div class="col-xxl-3 col-lg-5 col-md-6 ms-md-auto mt-4 mb-lg-10 mb-6">
             <div class="border-top">
@@ -199,42 +205,42 @@
                                 @endif
                             </td>
                         </tr>
-                        <tr>
-                            <td class="ps-0">{{ __('messages.invoice.discount') . ':' }}</td>
-                            <td class="text-gray-900 text-end pe-0">
-                                @if (!getSettingValue('currency_after_amount'))
-                                    <span
-                                        class="invoice-selected-currency">{{ getInvoiceCurrencyIcon($invoice->currency_id) }}</span>
-                                @endif
-                                <span id="discountAmount">
-                                    @if (isset($invoice) && $invoice->discount_type == \App\Models\Invoice::FIXED)
-                                        {{ $invoice->discount ?? 0 }}
-                                    @else
-                                        {{ isset($invoice) ? number_format(($invoice->amount * $invoice->discount) / 100, 2) : 0 }}
-                                    @endif
-                                </span>
-                                @if (getSettingValue('currency_after_amount'))
-                                    <span
-                                        class="invoice-selected-currency">{{ getInvoiceCurrencyIcon($invoice->currency_id) }}</span>
-                                @endif
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="ps-0">{{ __('messages.invoice.total_tax') . ':' }}</td>
-                            <td class="text-gray-900 text-end pe-0">
-                                @if (!getSettingValue('currency_after_amount'))
-                                    <span
-                                        class="invoice-selected-currency">{{ getInvoiceCurrencyIcon($invoice->currency_id) }}</span>
-                                @endif
-                                <span id="totalTax">
-                                    0
-                                </span>
-                                @if (getSettingValue('currency_after_amount'))
-                                    <span
-                                        class="invoice-selected-currency">{{ getInvoiceCurrencyIcon($invoice->currency_id) }}</span>
-                                @endif
-                            </td>
-                        </tr>
+{{--                        <tr>--}}
+{{--                            <td class="ps-0">{{ __('messages.invoice.discount') . ':' }}</td>--}}
+{{--                            <td class="text-gray-900 text-end pe-0">--}}
+{{--                                @if (!getSettingValue('currency_after_amount'))--}}
+{{--                                    <span--}}
+{{--                                        class="invoice-selected-currency">{{ getInvoiceCurrencyIcon($invoice->currency_id) }}</span>--}}
+{{--                                @endif--}}
+{{--                                <span id="discountAmount">--}}
+{{--                                    @if (isset($invoice) && $invoice->discount_type == \App\Models\Invoice::FIXED)--}}
+{{--                                        {{ $invoice->discount ?? 0 }}--}}
+{{--                                    @else--}}
+{{--                                        {{ isset($invoice) ? number_format(($invoice->amount * $invoice->discount) / 100, 2) : 0 }}--}}
+{{--                                    @endif--}}
+{{--                                </span>--}}
+{{--                                @if (getSettingValue('currency_after_amount'))--}}
+{{--                                    <span--}}
+{{--                                        class="invoice-selected-currency">{{ getInvoiceCurrencyIcon($invoice->currency_id) }}</span>--}}
+{{--                                @endif--}}
+{{--                            </td>--}}
+{{--                        </tr>--}}
+{{--                        <tr>--}}
+{{--                            <td class="ps-0">{{ __('messages.invoice.total_tax') . ':' }}</td>--}}
+{{--                            <td class="text-gray-900 text-end pe-0">--}}
+{{--                                @if (!getSettingValue('currency_after_amount'))--}}
+{{--                                    <span--}}
+{{--                                        class="invoice-selected-currency">{{ getInvoiceCurrencyIcon($invoice->currency_id) }}</span>--}}
+{{--                                @endif--}}
+{{--                                <span id="totalTax">--}}
+{{--                                    0--}}
+{{--                                </span>--}}
+{{--                                @if (getSettingValue('currency_after_amount'))--}}
+{{--                                    <span--}}
+{{--                                        class="invoice-selected-currency">{{ getInvoiceCurrencyIcon($invoice->currency_id) }}</span>--}}
+{{--                                @endif--}}
+{{--                            </td>--}}
+{{--                        </tr>--}}
                         <tr>
                             <td class="ps-0">{{ __('messages.invoice.total') . ':' }}</td>
                             <td class="text-gray-900 text-end pe-0">

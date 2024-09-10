@@ -173,7 +173,7 @@ class InvoiceRepository extends BaseRepository
 //            dd($input);
             $inputInvoiceTaxes = isset($input['taxes']) ? $input['taxes'] : [];
 //            $invoiceItemInputArray = Arr::only($input, ['product_id', 'quantity', 'price', 'tax', 'tax_id']);
-            $invoiceItemInputArray = Arr::only($input, ['product_name', 'quantity', 'price', 'tax', 'tax_id']);
+            $invoiceItemInputArray = Arr::only($input, ['product_name', 'unit','quantity', 'price', 'tax', 'tax_id']);
             $invoiceExist = Invoice::where('invoice_id', $input['invoice_id'])->exists();
             $invoiceItemInput = $this->prepareInputForInvoiceItem($invoiceItemInputArray);
             $total = [];
@@ -285,7 +285,7 @@ class InvoiceRepository extends BaseRepository
             $input['recurring_status'] = isset($input['recurring_status']);
 
             $inputInvoiceTaxes = isset($input['taxes']) ? $input['taxes'] : [];
-            $invoiceItemInputArr = Arr::only($input, ['product_id', 'quantity', 'price', 'tax', 'tax_id', 'id']);
+            $invoiceItemInputArr = Arr::only($input, ['product_name', 'quantity','unit', 'price', 'tax', 'tax_id', 'id']);
             $invoiceItemInput = $this->prepareInputForInvoiceItem($invoiceItemInputArr);
             $total = [];
             foreach ($invoiceItemInput as $key => $value) {
@@ -308,7 +308,7 @@ class InvoiceRepository extends BaseRepository
                 $input,
                 [
                     'client_id', 'invoice_date', 'due_date', 'discount_type', 'discount', 'amount', 'final_amount', 'note',
-                    'term', 'template_id', 'payment_qr_code_id', 'status', 'tax_id', 'tax', 'currency_id', 'recurring_status', 'recurring_cycle',
+                    'term', 'template_id', 'payment_qr_code_id', 'status', 'tax_id', 'tax', 'currency_id', 'recurring_status', 'recurring_cycle','shop_name' , 'location'
                 ]
             ), $invoiceId);
 
@@ -318,14 +318,16 @@ class InvoiceRepository extends BaseRepository
             }
 
             $totalAmount = 0;
-
             foreach ($invoiceItemInput as $key => $data) {
                 $validator = Validator::make($data, InvoiceItem::$rules, [
-                    'product_id.integer' => 'Please select a Product',
+                    'product_name.string' => 'Please select a Product',
                 ]);
+
                 if ($validator->fails()) {
                     throw new UnprocessableEntityHttpException($validator->errors()->first());
                 }
+
+
 //                $data['product_name'] = is_numeric($data['product_id']);
 //                if ($data['product_name'] == true) {
 //                    $data['product_name'] = null;

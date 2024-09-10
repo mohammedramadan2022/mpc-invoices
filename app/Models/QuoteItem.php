@@ -32,6 +32,7 @@ class QuoteItem extends Model
         'product_name' => 'required',
         'quantity'   => 'required|integer',
         'price'      => 'required|regex:/^\d+(\.\d{1,2})?$/',
+        'unit'      => 'required',
     ];
 
     /**
@@ -41,6 +42,7 @@ class QuoteItem extends Model
      */
     public static $messages = [
         'product_name.required' => 'The product field is required',
+        'unit.required' => 'The unit field is required',
     ];
 
     protected $table = 'quote_items';
@@ -52,12 +54,14 @@ class QuoteItem extends Model
         'quantity',
         'price',
         'total',
+        'unit',
     ];
 
     protected $casts = [
         'quote_id' => 'integer',
         'product_id' => 'integer',
         'product_name' => 'string',
+        'unit' => 'string',
         'quantity' => 'integer',
         'price' => 'double',
         'total' => 'double',

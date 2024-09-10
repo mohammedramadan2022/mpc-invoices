@@ -19,8 +19,8 @@
 
         @if (getCurrencySymbol() == '€')
             .euroCurrency {
-                font-family: Arial, "Helvetica", Arial, "Liberation Sans", sans-serif;
-            }
+            font-family: Arial, "Helvetica", Arial, "Liberation Sans", sans-serif;
+        }
         @endif
 
         .amount-table td {
@@ -28,12 +28,12 @@
         }
 
         .amount-table .label {
-            text-align: left;
+            text-align: right;
             font-weight: bold;
         }
 
         .amount-table .value {
-            text-align: left;
+            text-align: right;
         }
 
         .footer-stamp-container {
@@ -46,7 +46,7 @@
         }
 
         .footer-stamp {
-            width: 150px;
+            width: 200px;
             /* Adjust the width as needed */
             height: auto;
         }
@@ -116,244 +116,242 @@
 </head>
 
 <body style="padding: 0rem 2rem;">
-    @php $styleCss = 'style'; @endphp
-    <div class="preview-main client-preview tokyo-template">
-        <div class="d" id="boxes">
+@php $styleCss = 'style'; @endphp
+<div class="preview-main client-preview tokyo-template">
+    <div class="d" id="boxes">
+        <div class="">
+            <table class="dmb-3 w-100">
+                <tr>
+                    <td style="vertical-align:top; width: 35%;" class="pt-5">
+                        <img width="100px" src="{{ getLogoUrl() }}" alt="" class="img-logo">
+                    </td>
+                    <td style="width: 35%;" class="pt-5">
+                        <p class="p-text mb-0">{{ __('messages.quote.quote_id') . ':' }}&nbsp;
+                            <strong>{{ $setting['quote_no_prefix'] }}-{{ $quote->quote_id }}</strong>
+                        </p>
+                        <p class="p-text mb-0">{{ __('messages.quote.quote_date') . ':' }}
+                            <strong>{{ \Carbon\Carbon::parse($quote->invoice_date)->translatedFormat(currentDateFormat()) }}</strong>
+                        </p>
+                        <p class="p-text mb-0">{{ __('messages.quote.due_date') . ':' }}&nbsp;
+                            <strong>{{ \Carbon\Carbon::parse($quote->due_date)->translatedFormat(currentDateFormat()) }}</strong>
+                        </p>
+                    </td>
+                    <td class="in-w-4 pt-5"
+                    {{ $styleCss }}=" width: 20%;">
+                    <h1 class="fancy-title tu text-center mb-auto p-3" style="  font-size: 25px">
+                        <b>{{ __('messages.quote.quote_name') }}</b>
+                    </h1>
+                    </td>
+                </tr>
+            </table>
             <div class="">
-                <table class="dmb-3 w-100">
+                <table class="table table-bordered w-100">
+                    <thead class="bg-light">
                     <tr>
-                        <td class="">
-                            <img src="{{ getLogoUrl() }}" class="img-logo" alt="logo">
+                        <th class="py-1 text-uppercase" style="width:33.33% !important;">
+                            {{ __('messages.common.from') }}</th>
+                        <th class="py-1 text-uppercase" style="width:33.33% !important;">{{ __('messages.common.to') }}
+                        </th>
+
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td class="py-1">
+                            <b>{{ __('messages.common.name') . ':' }}&nbsp;</b>{!! $setting['company_name'] !!}<br>
+                            <b>{{ __('messages.common.address') . ':' }}&nbsp;</b>{!! $setting['company_address'] !!}<br>
+                            <b>{{ __('messages.user.phone') . ':' }}&nbsp;</b>{{ $setting['company_phone'] }}<br>
+{{--                            @if (!empty($setting['gst_no']))--}}
+{{--                                <b>{{ getVatNoLabel() . ':' }}&nbsp;</b>{{ $setting['gst_no'] }}--}}
+{{--                            @endif--}}
+                        </td>
+                        <td class="py-1" style=" overflow:hidden; word-wrap: break-word; word-break: break-all;">
+
+                            <b>{{ __('messages.setting.company') . ':' }}&nbsp;</b>{{ $client->company_name }}<br>
+                            <b>{{ __('messages.client.attention') . ':' }}&nbsp;</b>{{ $client->user->full_name }}<br>
+
+
+
+
+                            <b>{{ __('messages.common.email') . ':' }}</b>
+                            <span style="width:200px; word-break: break-word !important;">
+                                {{ $client->user->email }}</span><br>
+                            <b>{{ __('messages.common.address') . ':' }}&nbsp;</b>{{ $client->address }}<br>
+                            <b>{{ __('messages.common.shop_name') . ':' }}&nbsp;</b>{{ $quote->shop_name }}<br>
+                            <b>{{ __('messages.common.location') . ':' }}&nbsp;</b>{{ $quote->location }}
+
+{{--                            @if (!empty($client->vat_no))--}}
+{{--                                <br><b>{{ getVatNoLabel() . ':' }}&nbsp;</b>{{ $client->vat_no }}--}}
+{{--                            @endif--}}
                         </td>
 
-                        <td class="heading-text">
-                            <div class="text-end">
-                                <h3 class="m-0 text-black bold"
-                                    {{ $styleCss }}="color:{{ $invoice_template_color }}">
-                                    {{ __('messages.quote.quote_name') }}</h1>
-                            </div>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="w-100 overflow-auto">
+                <table class="invoice-table w-100">
+                    <thead {{ $styleCss }}="background-color: {{ $invoice_template_color }};">
+                    <tr>
+                        <th class="p-2" style="width:5% !important;">SN</th>
+                        <th class="p-2 in-w-2">{{ __('messages.Description') }}</th>
+                        <th class="p-2 text-center" style="width:9% !important;">
+                            {{ __('messages.invoice.qty') }}
+                        </th>
+                        <th class="p-2 text-center" style="width:9% !important;">
+                            {{ __('messages.common.unit') }}
+                        </th>
+                        <th class="p-2 text-center text-nowrap" style="width:18% !important;">
+                            {{ __('messages.product.unit_price') }}</th>
+                        <th class="p-2 text-end text-nowrap" style="width:16% !important;">
+                            {{ __('messages.invoice.amount') }}
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    @if (isset($quote) && !empty($quote))
+                        @foreach ($quote->quoteItems as $key => $quoteItems)
+                            <tr>
+                                <td class="" style="width:5%;"><span>{{ $key + 1 }}</span></td>
+                                <td class=" in-w-2">
+                                    <p class="fw-bold mb-0">
+                                        {{ isset($quoteItems->product->name) ? $quoteItems->product->name : $quoteItems->product_name ?? __('messages.common.n/a') }}
+                                    </p>
+                                    @if (
+                                        !empty($quoteItems->product->description) &&
+                                            (isset($setting['show_product_description']) && $setting['show_product_description'] == 1))
+                                        <span
+                                            style="font-size: 12px; word-break: break-all">{{ $quoteItems->product->description }}</span>
+                                    @endif
+                                </td>
+                                <td class=" text-center text-nowrap">
+                                    {{ $quoteItems->quantity }}
+                                </td> <td class=" text-center text-nowrap">
+                                    {{ $quoteItems->unit }}
+                                </td>
+                                <td class=" text-center text-nowrap">
+                                    {{ isset($quoteItems->price) ? getCurrencyAmount($quoteItems->price, true) : __('messages.common.n/a') }}
+                                </td>
+                                <td class="text-end text-nowrap">
+                                    {{ isset($quoteItems->total) ? getCurrencyAmount($quoteItems->total, true) : __('messages.common.n/a') }}
+                                </td>
+                            </tr>
+                        @endforeach
+                    @endif
+                    </tbody>
+                </table>
+            </div>
+            <div class="my-4">
+                <table class="ms-auto mb-10 text-end w-100">
+                    <tr>
+                        <td class="w-75"></td>
+                        <td class="w-25">
+                            <table class="w-100">
+                                <tbody>
+                                <tr>
+                                    <td class="py-1 px-0 font-dark-gray text-nowrap">
+                                        <strong>{{ __('messages.quote.amount') . ':' }}</strong>
+                                    </td>
+                                    <td class="text-end font-gray-600 py-1 px-0 fw-bold text-nowrap">
+                                        {{ getCurrencyAmount($quote->amount, true) }}
+                                    </td>
+                                </tr>
+                                @if ($quote->discount > 0)
+
+                                    <tr>
+                                    <td class="py-1 px-0 font-dark-gray text-nowrap">
+                                        <strong>{{ __('messages.quote.discount') . ':' }}</strong>
+                                    </td>
+                                    <td class="text-end font-gray-600 py-1 px-0 fw-bold text-nowrap">
+                                        @if ($quote->discount == 0)
+                                            <span>{{ __('messages.common.n/a') }}</span>
+                                        @else
+                                            @if (isset($quote) && $quote->discount_type == \App\Models\Quote::FIXED)
+                                                <b
+                                                    class="euroCurrency">{{ isset($quote->discount) ? getCurrencyAmount($quote->discount, true) : __('messages.common.n/a') }}</b>
+                                            @else
+                                                {{ $quote->discount }}<span
+                                                {{ $styleCss }}="font-family: DejaVu Sans">
+                                                &#37;</span>
+                                            @endif
+                                        @endif
+                                    </td>
+
+                                </tr>
+                                @endif
+                                </tbody>
+                                <tfoot class="total-amount">
+                                <tr>
+                                    <td class="py-2 font-dark-gray text-nowrap">
+                                        <strong>{{ __('messages.quote.total') . ':' }}</strong>
+                                    </td>
+                                    <td class="text-end font-dark-gray py-2 fw-bold text-nowrap">
+                                        {{ getCurrencyAmount($quote->final_amount, true) }}
+                                    </td>
+                                </tr>
+                                </tfoot>
+                            </table>
                         </td>
                     </tr>
                 </table>
-                <div class="">
-                    <table class="my-3 w-100">
-                        <tbody>
-                            <tr style="vertical-align:top;">
-                                <td width="43.33%;">
-                                    <p class="fs-6 mb-2 font-gray-900">
-                                        <strong>{{ __('messages.common.to') . ':' }}</strong>
-                                    </p>
-                                    <p class=" mb-1 font-color-gray fs-6">{{ __('messages.client.client_name') . ':' }}
-                                        <span class="font-gray-900">{{ $client->company_name }}</span></p>
-                                    <p class=" mb-1 font-color-gray fs-6">{{ __('messages.client.attention') . ':' }}
-                                        <span class="font-gray-900">{{ $client->user->full_name }}</span></p>
-                                    <p class="mb-1 font-color-gray fs-6">{{ __('messages.common.email') . ':' }}
-                                        <span class="font-gray-900">{{ $client->user->email }}</span>
-                                    </p>
-                                    <p class="mb-1  font-color-gray fs-6">{{ __('messages.common.address') . ':' }}
-                                        <span class="font-gray-900">{{ $client->address }} </span>
-                                    </p>
-                                    </p>
-                                    <p class    = "mb-1 font-color-gray fs-6">{{ __('messages.user.phone') . ':' }}
-                                        <span class    = "font-gray-900">{{ $client->user->contact }} </span>
-                                    </p>
-                                    <p     class = "mb-1 font-color-gray fs-6">{{ __('messages.common.shop_name') . ':' }}
-                                    <span  class = "font-gray-900">{{ $quote->shop_name }} </span>
-                                    </p>
-                                    <p class = "mb-1 font-color-gray fs-6">{{ __('messages.common.location') . ':' }}
-                                    <span  class = "font-gray-900">{{ $quote->location }} </span>
-                                    </p>
-                                    {{--                                    @if (!empty($client->vat_no)) --}}
-                                    {{--                                        <p class="mb-1 font-color-gray fs-6">{{ getVatNoLabel() . ':' }} --}}
-                                    {{--                                            <span class="font-gray-900">{{ $client->vat_no }} </span> --}}
-                                    {{--                                        </p> --}}
-                                    {{--                                    @endif --}}
-                                </td>
-                                <td width="23.33%;">
-                                    <p class="fs-6 mb-2 font-gray-900">
-                                        <strong>{{ __('messages.common.from') . ':' }}</strong>
-                                    </p>
-                                    <p class="mb-1 font-color-gray fw-bold fs-6">
-                                        {{ __('messages.setting.company_name') . ':' }}&nbsp; <span
-                                            class="font-gray-900">{!! $setting['app_name'] !!}
-                                        </span>
-                                    </p>
-                                    <p class="mb-1 font-color-gray fw-bold fs-6">
-                                        {{ __('messages.common.address') . ':' }}&nbsp; <span
-                                            class="font-gray-900">{!! $setting['company_address'] !!}
-                                        </span>
-                                    </p>
-                                    <p class="mb-1 font-color-gray fw-bold fs-6">
-                                        {{ __('messages.user.phone') . ':' }}&nbsp; <span
-                                            class="font-gray-900">{{ $setting['company_phone'] }}
-                                        </span>
-                                    </p>
-                                    @if (!empty($setting['gst_no']))
-                                        <p class="mb-1 font-color-gray fw-bold fs-6 text-nowrap">
-                                            {{ getVatNoLabel() . ':' }}&nbsp; <span
-                                                class="font-gray-900">{{ $setting['gst_no'] }}
-                                            </span>
-                                        </p>
-                                    @endif
-                                </td>
-                                <td width="33.33%;" class="text-end pt-7">
-                                    <p class="mb-1 text-gray-600 fs-6"><strong
-                                            class="font-gray-900">{{ __('messages.quote.quote') . ':' }}
-                                        </strong>{{ $setting['quote_no_prefix'] }}-{{ $quote->quote_id }}
-                                    </p>
-                                    <p class="mb-1 text-gray-600 fs-6"><strong
-                                            class="font-gray-900">{{ __('messages.quote.quote_date') . ':' }}
-                                        </strong>{{ \Carbon\Carbon::parse($quote->quote_date)->translatedFormat(currentDateFormat()) }}
-                                    </p>
-                                    <p class=" mb-1 text-gray-600 fs-6"><strong
-                                            class="font-gray-900">{{ __('messages.quote.due_date') . ':' }}&nbsp;
-                                        </strong>{{ \Carbon\Carbon::parse($quote->due_date)->translatedFormat(currentDateFormat()) }}
-                                    </p>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+                <div style="vertical-align:bottom; width:60%;">
                 </div>
-                <div class="w-100 overflow-auto">
-                    <table class="invoice-table w-100">
-                        <thead {{ $styleCss }}="background-color: {{ $invoice_template_color }};">
-                            <tr>
-                                <th class="p-2" style="width:5% !important;">#</th>
-                                <th class="p-2 in-w-2">{{ __('messages.Description') }}</th>
-                                <th class="p-2 text-center" style="width:9% !important;">
-                                    {{ __('messages.invoice.qty') }}
-                                </th>
-                                <th class="p-2 text-center text-nowrap" style="width:18% !important;">
-                                    {{ __('messages.product.unit_price') }}</th>
-                                <th class="p-2 text-end text-nowrap" style="width:16% !important;">
-                                    {{ __('messages.invoice.amount') }}
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @if (isset($quote) && !empty($quote))
-                                @foreach ($quote->quoteItems as $key => $quoteItems)
-                                    <tr>
-                                        <td class="" style="width:5%;"><span>{{ $key + 1 }}</span></td>
-                                        <td class=" in-w-2">
-                                            <p class="fw-bold mb-0">
-                                                {{ isset($quoteItems->product->name) ? $quoteItems->product->name : $quoteItems->product_name ?? __('messages.common.n/a') }}
-                                            </p>
-                                            @if (
-                                                !empty($quoteItems->product->description) &&
-                                                    (isset($setting['show_product_description']) && $setting['show_product_description'] == 1))
-                                                <span
-                                                    style="font-size: 12px; word-break: break-all">{{ $quoteItems->product->description }}</span>
-                                            @endif
-                                        </td>
-                                        <td class=" text-center text-nowrap">
-                                            {{ $quoteItems->quantity }}
-                                        </td>
-                                        <td class=" text-center text-nowrap">
-                                            {{ isset($quoteItems->price) ? getCurrencyAmount($quoteItems->price, true) : __('messages.common.n/a') }}
-                                        </td>
-                                        <td class="text-end text-nowrap">
-                                            {{ isset($quoteItems->total) ? getCurrencyAmount($quoteItems->total, true) : __('messages.common.n/a') }}
-                                        </td>
-                                    </tr>
-                                @endforeach
-                            @endif
-                        </tbody>
-                    </table>
-                </div>
-                <div class="my-4">
-                    <table class="mb-10 text-start  amount-table">
-                        <tbody>
-                            <tr>
-                                <td class="label">
-                                    <strong>{{ __('messages.quote.amount') . ':' }}</strong>
-                                </td>
-                                <td class="value">
-                                    {{ getCurrencyAmount($quote->amount, true) }}
-                                </td>
-                            </tr>
-                            @if ($quote->discount > 0)
-                                <tr>
-                                    <td class="label">
-                                        <strong>{{ __('messages.quote.discount') . ':' }}</strong>
-                                    </td>
-                                    <td class="value">
-                                        @if (isset($quote) && $quote->discount_type == \App\Models\Quote::FIXED)
-                                            <b class="euroCurrency">{{ getCurrencyAmount($quote->discount, true) }}</b>
-                                        @else
-                                            {{ $quote->discount }}<span
-                                                {{ $styleCss }}="font-family: DejaVu Sans">
-                                                &#37;</span>
-                                        @endif
-                                    </td>
-                                </tr>
-                            @endif
-                            @if ($quote->taxes != 0)
-                                <tr>
-                                    <td class="label">
-                                        <strong>{{ __('messages.invoice.tax') . ':' }}</strong>
-                                    </td>
-                                    <td class="value">
-                                        {{ getCurrencyAmount($quote->taxes, true) }}
-                                    </td>
-                                </tr>
-                            @endif
-                        </tbody>
-                        <tfoot class="total-amount">
-                            <tr>
-                                <td class="label">
-                                    <strong>{{ __('messages.quote.total') . ':' }}</strong>
-                                </td>
-                                <td class="value">
-                                    {{ getCurrencyAmount($quote->final_amount, true) }}
-                                </td>
-                            </tr>
-                        </tfoot>
-                    </table>
-                </div>
-                <div class="mt-20">
-                    @if ($quote->note)
-                        <div class="mb-5 pt-10">
-                            <h6 class="font-gray-900 mb5 text-start"><b>{{ __('messages.client.notes') . ':' }}</b>
-                            </h6>
-                            <p class="font-gray-600 text-start">{!! nl2br($quote->note ?? __('messages.common.n/a')) !!}</p>
-                        </div>
-                    @endif
-                    <table class="mb-3 w-100">
-                        <tr>
-                            @if ($quote->term)
-                                <td class="w-50 text-start">
-                                    <div class="">
-                                        <h6 class="font-gray-900 mb5"><b>{{ __('messages.invoice.terms') . ':' }}</b>
-                                        </h6>
-                                        <p class="font-gray-600 mb-0">{!! nl2br($quote->term ?? __('messages.common.n/a')) !!}</p>
-                                    </div>
-                                </td>
-                            @endif
-                            <td class="w-25 text-start">
+            </div>
+            <div class="mt-20">
+                @if ($quote->note)
+                    <div class="mb-5 pt-10">
+                        <h6 class="font-gray-900 mb5 text-start"><b>{{ __('messages.client.notes') . ':' }}</b>
+                        </h6>
+                        <p class="font-gray-600 text-start">{!! nl2br($quote->note ?? __('messages.common.n/a')) !!}</p>
+                    </div>
+                @endif
+                <table class="mb-3 w-100">
+                    <tr>
+                        @if ($quote->term)
+                            <td class="w-50 text-start">
                                 <div class="">
-                                    <h6 class="font-dark-gray mb5"><b>{{ __('messages.setting.regards') . ':' }}</b>
+                                    <h6 class="font-gray-900 mb5"><b>{{ __('messages.invoice.terms') . ':' }}</b>
                                     </h6>
-                                    <p class="fs-6" {{ $styleCss }}="color:{{ $invoice_template_color }}">
-                                        {{ $setting['app_name'] }}</p>
+                                    <p class="font-gray-600 mb-0">{!! nl2br($quote->term ?? __('messages.common.n/a')) !!}</p>
                                 </div>
                             </td>
-                        </tr>
-                    </table>
-                </div>
+                        @endif
+                    </tr>
+{{--                    <tr>--}}
+{{--                        <td class="w-25 text-start">--}}
+{{--                            <div class="">--}}
+{{--                                <h6 class="font-dark-gray mb5"><b>{{ __('messages.setting.regards') . ':' }}</b>--}}
+{{--                                </h6>--}}
+{{--                                <p class="fs-6" {{ $styleCss }}="color:{{ $invoice_template_color }}">--}}
+{{--                                {{ $setting['app_name'] }}</p>--}}
+
+
+{{--                        --}}
+{{--                            </div>--}}
+{{--                        </td>--}}
+{{--                    </tr>--}}
+                </table>
+
+                    <div class="footer-stamp-container">
+                        <img src="{{ asset('images/stamp.png') }}" alt="Stamp Image" class="footer-stamp">
+
+                        <p class=""
+                        {{ $styleCss }}="color:
+                                                            {{ $invoice_template_color }}">
+                        {{ html_entity_decode($setting['app_name']) }}-management</p>
+                    </div>
             </div>
         </div>
     </div>
+</div>
 
 
-     <div class="footer-stamp-container">
-        <img src="{{ asset('images/stamp.png') }}" alt="Stamp Image" class="footer-stamp">
-     </div>
 
-    <div class="footer">
-        <img src="{{ asset('images/footer.png') }}" alt="Footer Image">
 
-    </div>
+<div class="footer">
+    <img src="{{ asset('images/footer.png') }}" alt="Footer Image">
+
+</div>
 </body>
 
 </html>

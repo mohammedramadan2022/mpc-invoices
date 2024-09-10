@@ -113,6 +113,7 @@ return [
     'common' => [
         'save'                => 'Save',
         'submit'              => 'Submit',
+        'unit'              => 'Unit',
         'cancel'              => 'Cancel',
         'discard'             => 'Discard',
         'country'             => 'Country',
@@ -213,6 +214,7 @@ return [
         'postal_code' => 'Postal Code',
         'app_name' => 'App Name',
         'company_name' => 'Company Name',
+        'company' => 'Company',
         'app_logo' => 'App Logo',
         'image_validation' => 'The image must be of pixel 90 x 60.',
         'company_image_validation' => 'The image must be of pixel 210 x 50.',
@@ -613,6 +615,7 @@ return [
         'select_payment_qr_code' => 'Select Payment QR Code',
         'select_currency' => 'Select Currency',
         'select_product_or_enter_free_text' => 'Select Product or Enter free text',
+        'select_unit_or_enter_free_text' => 'Select Unit or Enter free text',
         'number_of_days_for_recurring_cycle' => 'Number of Days For Recurring Cycle',
         'click_refresh_icon_generate_product_code' => 'Click refresh icon to generate product code.',
         'allowed_file_types_png_jpg_jpeg' => 'Allowed file types: png, jpg, jpeg.',

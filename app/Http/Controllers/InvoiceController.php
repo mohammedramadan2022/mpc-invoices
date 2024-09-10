@@ -106,10 +106,12 @@ class InvoiceController extends AppBaseController
 
     public function update(UpdateInvoiceRequest $request, Invoice $invoice): JsonResponse
     {
+
         $input = $request->all();
         try {
             DB::beginTransaction();
             $invoice = $this->invoiceRepository->updateInvoice($invoice->id, $input);
+
             $changes = $invoice->getChanges();
             if ($input['invoiceStatus'] == '1') {
                 if (count($changes) > 0 && $input['invoiceStatus'] == '1') {

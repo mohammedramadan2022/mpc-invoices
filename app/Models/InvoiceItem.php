@@ -51,6 +51,7 @@ class InvoiceItem extends Model
     public static $rules = [
 //        'product_id' => 'required',
         'product_name' => 'required',
+        'unit' => 'required',
         'quantity' => 'required|regex:/^\d*(\.\d{1,2})?$/',
         'price' => 'required|regex:/^\d+(\.\d{1,2})?$/',
     ];
@@ -62,6 +63,7 @@ class InvoiceItem extends Model
         'product_id',
         'product_name',
         'quantity',
+        'unit',
         'price',
         'total',
     ];
@@ -70,6 +72,7 @@ class InvoiceItem extends Model
         'invoice_id' => 'integer',
         'product_id' => 'integer',
         'product_name' => 'string',
+        'unit' => 'string',
         'quantity' => 'double',
         'price' => 'double',
         'total' => 'double',

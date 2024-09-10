@@ -11,6 +11,7 @@ use App\Models\Quote;
 use App\Models\QuoteItem;
 use App\Models\Setting;
 use App\Models\User;
+use Carbon\Carbon;
 use Exception;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
@@ -114,9 +115,10 @@ class QuoteRepository extends BaseRepository
             if ($input['final_amount'] == 'NaN') {
                 $input['final_amount'] = 0;
             }
-            $quoteItemInputArray = Arr::only($input, ['product_name', 'quantity', 'price']);
+            $quoteItemInputArray = Arr::only($input, ['product_name', 'quantity', 'price','unit']);
             $quoteExist = Quote::where('quote_id', $input['quote_id'])->exists();
             $quoteItemInput = $this->prepareInputForQuoteItem($quoteItemInputArray);
+
             $total = [];
             foreach ($quoteItemInput as $key => $value) {
                 $total[] = $value['price'] * $value['quantity'];
@@ -194,7 +196,7 @@ class QuoteRepository extends BaseRepository
                 $input['discount'] = 0;
             }
             $input['final_amount'] = $input['amount'];
-            $quoteItemInputArr = Arr::only($input, ['product_id', 'quantity', 'price', 'id']);
+            $quoteItemInputArr = Arr::only($input, ['product_name','unit', 'quantity', 'price', 'id']);
             $quoteItemInput = $this->prepareInputForQuoteItem($quoteItemInputArr);
             $total = [];
             foreach ($quoteItemInput as $key => $value) {
@@ -208,26 +210,27 @@ class QuoteRepository extends BaseRepository
 
             /** @var Quote $quote */
             $input['client_id'] = Client::whereUserId($input['client_id'])->first()->id;
+            $input['quote_date'] = Carbon::parse($input['due_date'])->format('Y-m-d');
+            $input['due_date'] = Carbon::parse($input['due_date'])->format('Y-m-d');
             $quote = $this->update(Arr::only($input,
                 [
                     'client_id', 'quote_date', 'due_date', 'discount_type', 'discount', 'final_amount', 'note',
                     'term', 'template_id', 'price',
-                    'status','shop_name','location'
+                    'status','shop_name','location',
                 ]), $quoteId);
             $totalAmount = 0;
-
             foreach ($quoteItemInput as $key => $data) {
                 $validator = Validator::make($data, QuoteItem::$rules, QuoteItem::$messages);
                 if ($validator->fails()) {
                     throw new UnprocessableEntityHttpException($validator->errors()->first());
                 }
-                $data['product_name'] = is_numeric($data['product_id']);
-                if ($data['product_name'] == true) {
-                    $data['product_name'] = null;
-                } else {
-                    $data['product_name'] = $data['product_id'];
-                    $data['product_id'] = null;
-                }
+//                $data['product_name'] = is_numeric($data['product_id']);
+//                if ($data['product_name'] == true) {
+//                    $data['product_name'] = null;
+//                } else {
+//                    $data['product_name'] = $data['product_id'];
+//                    $data['product_id'] = null;
+//                }
                 $data['amount'] = $data['price'] * $data['quantity'];
                 $data['total'] = $data['amount'];
                 $totalAmount += $data['amount'];

@@ -56,6 +56,8 @@
                         <th scope="col">#</th>
                         <th scope="col" class="required">{{ __('messages.Description') }}</th>
                         <th scope="col" class="required">{{ __('messages.invoice.qty') }}</th>
+                        <th scope="col" class="required">{{ __('messages.common.unit') }}</th>
+
                         <th scope="col" class="required">{{ __('messages.product.unit_price') }}</th>
                         <th scope="col" class="required">{{ __('messages.invoice.amount') }}</th>
                         <th scope="col" class="text-end">{{ __('messages.common.action') }}</th>
@@ -76,6 +78,10 @@
                             </td>
                             <td class="table__qty">
                                 {{ Form::number('quantity[]', $quoteItem->quantity, ['class' => 'form-control qty-quote', 'id' => 'qty', 'required', 'type' => 'number', 'min' => 1, 'oninput' => "validity.valid||(value=value.replace(/\D+/g, ''))"]) }}
+                            </td>
+                            <td class="table__item-desc w-25">
+                                {{--                             {{ Form::select('product_id[]', $products, null, ['class' => 'form-select product-quote io-select2', 'required', 'placeholder' => __('messages.flash.select_product_or_enter_free_text'), 'data-control' => 'select2']) }} --}}
+                                {{ Form::text('unit[]', $quoteItem->unit, ['class' => 'form-control form-control-solid','required' => true, 'placeholder' => __('messages.flash.select_unit_or_enter_free_text')]) }}
                             </td>
                             <td>
                                 {{ Form::number('price[]', $quoteItem->price, ['class' => 'form-control price-input price-quote', 'oninput' => "validity.valid||(value=value.replace(/[e\+\-]/gi,''))", 'min' => '0', 'step' => '.01', 'required', 'onKeyPress' => 'if(this.value.length==8) return false;']) }}

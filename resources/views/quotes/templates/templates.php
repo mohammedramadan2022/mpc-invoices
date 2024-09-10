@@ -17,6 +17,11 @@
         <td class="table__qty">
             <input class="form-control qty-quote" required="" name="quantity[]" type="number" min="1" oninput="validity.valid||(value=value.replace(/\D+/g, ''))">
         </td>
+
+        <td class="table__item-desc w-25">
+           <input type="text" name="unit[]" value="" class="form-control form-control-solid" required placeholder="">
+
+        </td>
         <td>
             <input class="form-control price-input price-quote" required="" name="price[]" type="number" oninput="validity.valid||(value=value.replace(/[e\+\-]/gi,''))" min='0' step='.01' onKeyPress="if(this.value.length==8) return false;">
         </td>
