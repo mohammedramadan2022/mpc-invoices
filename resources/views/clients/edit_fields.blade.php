@@ -130,7 +130,24 @@
         {{ Form::label('vat_no', $vatNoLabel . ':', ['class' => 'form-label mb-3']) }}
         {{ Form::text('vat_no', $client->vat_no ?? null, ['class' => 'form-control', 'placeholder' => $vatNoLabel]) }}
     </div>
+
+   <div>
+
+       <div class="col-xl-3 col-lg-4 mb-7">
+           {{ Form::label('Quote Start', 'Quote Start:', ['class' => 'form-label mb-3']) }}
+           {{ Form::number('quote_start', $client->quote_start, ['class' => 'form-control', 'placeholder' => 'Quote Start']) }}
+       </div>
+       <div class="col-xl-3 col-lg-4 mb-7">
+           {{ Form::label('Invoice Start', 'Invoice Start:', ['class' => 'form-label mb-3']) }}
+           {{ Form::number('invoice_start', $client->invoice_start, ['class' => 'form-control', 'placeholder' => 'Invoice Start']) }}
+       </div>
+
+   </div>
     <div class="d-flex justify-content-end mt-5">
+
+
+
+
         {{ Form::submit(__('messages.common.save'), ['class' => 'btn btn-primary me-3']) }}
         <a href="{{ route('clients.index') }}" type="reset"
             class="btn btn-secondary btn-active-light-primary">{{ __('messages.common.cancel') }}</a>

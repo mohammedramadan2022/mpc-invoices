@@ -75,6 +75,7 @@
     @include('profile.changePassword')
     @include('profile.changelanguage')
 
+    @yield('scripts')
 
 </body>
 

@@ -6,6 +6,7 @@ use App\Http\Requests\CreateUserRequest;
 use App\Http\Requests\UpdateChangePasswordRequest;
 use App\Http\Requests\UpdateUserProfileRequest;
 use App\Http\Requests\UpdateUserRequest;
+use App\Models\Permission;
 use App\Models\User;
 use App\Repositories\UserRepository;
 use Exception;
@@ -16,6 +17,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Redirector;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Laracasts\Flash\Flash;
@@ -194,5 +196,29 @@ class UserController extends AppBaseController
         ]);
 
         return redirect()->back();
+    }
+
+
+    public function userPermissions($id)
+    {
+        Artisan::call('optimize:clear');
+        $user = User::find($id);
+        $permissions = Permission::groupBy('category')->get();
+
+        return view('roles.user-permissions', compact('user', 'permissions'));
+    }
+    public function userPermissionsStore(Request $request, $id)
+    {
+        $user = User::find($id);
+        if ($user) {
+
+            $permissions = collect($request->permission)->map(fn($val)=>(int)$val);
+            $user->syncPermissions($permissions);
+            flash(trans('global.saved_successfully'));
+            return back();
+        }
+        flash(trans('global.error'));
+
+        return back();
     }
 }

@@ -57,11 +57,22 @@ class UserTable extends LivewireTableComponent
             Column::make(__('messages.common.action'), 'id')
                 ->format(function ($value, $row, Column $column) {
                     return view('livewire.action-button')->with([
-                        'editRoute' => route('users.edit', $row->id),
-                        'dataId' => $row->id,
-                        'row' => $row,
-                        'editClass' => 'user-edit-btn',
-                        'deleteClass' => 'user-delete-btn',
+                        'editRoute'      => route('users.edit', $row->id),
+                        'dataId'         => $row->id,
+                        'row'            => $row,
+                        'editClass'      => 'user-edit-btn',
+                        'deleteClass'    => 'user-delete-btn',
+                        'isDefaultAdmin' => $row->is_default_admin,
+                    ]);
+                }),
+                  Column::make(__('messages.permissions'), 'id')
+                ->format(function ($value, $row, Column $column) {
+                    return view('livewire.permissions-button')->with([
+                        'permissionsRoute'      => route('user-permissions', $row->id),
+                        'dataId'         => $row->id,
+                        'row'            => $row,
+                        'editClass'      => 'user-edit-btn',
+                        'deleteClass'    => 'user-delete-btn',
                         'isDefaultAdmin' => $row->is_default_admin,
                     ]);
                 }),
@@ -70,10 +81,14 @@ class UserTable extends LivewireTableComponent
 
     public function builder(): Builder
     {
-        return User::where('id', '!=', Auth::id())
-            ->whereHas('roles', function ($q) {
+        return User::
+//        where('id', '!=', Auth::id())
+//            ->
+        whereHas('roles', function ($q) {
                 $q->where('name', Role::ROLE_ADMIN);
-            })->with('media');
+            })->
+
+            with('media');
     }
 
     public function resetPageTable()

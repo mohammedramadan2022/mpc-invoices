@@ -186,6 +186,8 @@ class Invoice extends Model
         'parent_id',
         'shop_name',
         'location',
+        'service_report_number',
+        'po_number',
     ];
 
     protected $casts = [

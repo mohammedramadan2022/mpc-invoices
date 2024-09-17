@@ -19,10 +19,12 @@ use App\Http\Controllers\SettingController;
 use App\Http\Controllers\TaxController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\OperationController;
+use App\Http\Controllers\PermissionController;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\RoleController;
 
 /*
 |--------------------------------------------------------------------------
@@ -82,7 +84,7 @@ Route::middleware(['xss'])->group(function () {
     )->name('public-view-quote.pdf');
 });
 
-Route::prefix('admin')->middleware(['auth', 'xss', 'role:admin'])->group(function () {
+Route::prefix('admin')->middleware(['auth', 'xss'])->group(function () {
     // View logs
 
     Route::get('/invoices/last-invoice-id', [OperationController::class, 'getLastInvoiceId'])->name('invoices.getLastInvoiceId');
@@ -335,13 +337,20 @@ Route::middleware(['auth', 'xss'])->group(function () {
 
     // send invoice on whatsapp route
     Route::post('send-invoice-on-whatsapp', [InvoiceController::class, 'sendInvoiceOnWhatsapp'])->name('send.invoice.on.whatsapp');
+
+
+
 });
+Route::get('/user-permissions/{id}', [UserController::class, 'userPermissions'])->name('user-permissions');
+Route::post('user-permissions.store/{id}', [UserController::class, 'userPermissionsStore'])->name('user-permissions.store');
 
 Route::get('lang-js', function(){
     Artisan::call('lang:js');
 
     return redirect(route('login'));
 });
+
+
 
 require __DIR__.'/auth.php';
 require __DIR__.'/upgrade.php';

@@ -58,7 +58,7 @@ class AdminPaymentTable extends LivewireTableComponent
             Column::make('First Name', 'invoice.client.user.first_name')
                 ->sortable()
                 ->searchable()
-            ->hideIf(1),
+                ->hideIf(1),
             Column::make('First Name', 'invoice.invoice_id')
                 ->sortable()
                 ->searchable()
@@ -82,25 +82,31 @@ class AdminPaymentTable extends LivewireTableComponent
                 ->format(function ($value, $row, Column $column) {
                     return getInvoiceCurrencyAmount($row->amount, $row->invoice->currency_id, true);
                 }),
-
             Column::make(__('messages.invoice.payment_method'), 'payment_mode')
                 ->sortable()
                 ->searchable()
                 ->label(function ($row, Column $column) {
-                    return  ($row->payment_mode == 4) ? '<span class="badge bg-light-info fs-7">Cash</span>' : '';
+                    return ($row->payment_mode == 4) ? '<span class="badge bg-light-info fs-7">Cash</span>' : '';
                 })
-                 ->html(),
+                ->html(),
             Column::make(__('messages.common.action'), 'id')
                 ->format(function ($value, $row, Column $column) {
+                    // Check if the user has the 'payments.edit' permission
+                    $canEdit = auth()->user()->can('payments.edit');
+                    $canDelete = auth()->user()->can('payments.delete');
+
                     return view('livewire.modal-action-button')
                         ->with([
                             'dataId' => $row->id,
-                            'editClass' => 'payment-edit-btn',
-                            'deleteClass' => 'payment-delete-btn',
+                            'editClass' => $canEdit ? 'payment-edit-btn' : null,
+                            'deleteClass' =>$canDelete ? 'payment-delete-btn':null,
+                            'canEdit' => $canEdit, // Pass the permission check to the view
+                            'canDelete' => $canDelete, // Pass the permission check to the view
                         ]);
                 }),
         ];
     }
+
 
     public function builder(): Builder
     {

@@ -21,6 +21,7 @@
             .euroCurrency {
             font-family: Arial, "Helvetica", Arial, "Liberation Sans", sans-serif;
         }
+
         @endif
 
         .amount-table td {
@@ -93,7 +94,6 @@
         }
 
 
-
         .client-preview .img-logo {
             width: 250px !important;
             max-width: none !important;
@@ -154,11 +154,12 @@
                     <tr>
                         <td class="py-1">
                             <b>{{ __('messages.common.name') . ':' }}&nbsp;</b>{!! $setting['company_name'] !!}<br>
-                            <b>{{ __('messages.common.address') . ':' }}&nbsp;</b>{!! $setting['company_address'] !!}<br>
+                            <b>{{ __('messages.common.address') . ':' }}&nbsp;</b>{!! $setting['company_address'] !!}
+                            <br>
                             <b>{{ __('messages.user.phone') . ':' }}&nbsp;</b>{{ $setting['company_phone'] }}<br>
-{{--                            @if (!empty($setting['gst_no']))--}}
-{{--                                <b>{{ getVatNoLabel() . ':' }}&nbsp;</b>{{ $setting['gst_no'] }}--}}
-{{--                            @endif--}}
+                            {{--                            @if (!empty($setting['gst_no']))--}}
+                            {{--                                <b>{{ getVatNoLabel() . ':' }}&nbsp;</b>{{ $setting['gst_no'] }}--}}
+                            {{--                            @endif--}}
                         </td>
                         <td class="py-1" style=" overflow:hidden; word-wrap: break-word; word-break: break-all;">
 
@@ -170,12 +171,20 @@
 
                             <b>{{ __('messages.common.address') . ':' }}&nbsp;</b>{{ $client->address }}<br>
                             <b>{{ __('messages.common.shop_name') . ':' }}&nbsp;</b>{{ $invoice->shop_name }}<br>
-                            <b>{{ __('messages.common.location') . ':' }}&nbsp;</b>{{ $invoice->location }}
+                            <b>{{ __('messages.common.location') . ':' }}&nbsp;</b>{{ $invoice->location }}<br>
+                            @if($invoice->po_number)
 
+                                <b>{{ __('messages.common.PO') . ':' }}&nbsp;</b>{{ $invoice->po_number }}<br>
 
-{{--                            @if (!empty($client->vat_no))--}}
-{{--                                <br><b>{{ getVatNoLabel() . ':' }}&nbsp;</b>{{ $client->vat_no }}--}}
-{{--                            @endif--}}
+                            @endif
+                            @if($invoice->service_report_number)
+
+                                <b>{{ __('messages.common.service_report_number') . ':' }}&nbsp;</b>{{ $invoice->service_report_number }}
+
+                            @endif
+                            {{--                            @if (!empty($client->vat_no))--}}
+                            {{--                                <br><b>{{ getVatNoLabel() . ':' }}&nbsp;</b>{{ $client->vat_no }}--}}
+                            {{--                            @endif--}}
                         </td>
 
                     </tr>
@@ -196,9 +205,9 @@
                         </th>
                         <th class="p-2 text-center text-nowrap" style="width:15% !important;">
                             {{ __('messages.product.unit_price') }}</th>
-                       {{-- <th class="p-2 text-center text-nowrap" style="width:13% !important;">
-                            {{ __('messages.invoice.tax') . '(in %)' }}
-                        </th>--}}
+                        {{-- <th class="p-2 text-center text-nowrap" style="width:13% !important;">
+                             {{ __('messages.invoice.tax') . '(in %)' }}
+                         </th>--}}
                         <th class="p-2 text-end text-nowrap" style="width:14% !important;">
                             {{ __('messages.invoice.amount') }}
                         </th>
@@ -234,14 +243,14 @@
                                     {{ isset($invoiceItems->price) ? getInvoiceCurrencyAmount($invoiceItems->price, $invoice->currency_id, true) : __('messages.common.n/a') }}
                                 </td>
 
-                              {{--  <td class="text-center text-nowrap">
-                                    @foreach ($invoiceItems->invoiceItemTax as $keys => $tax)
-                                        {{ $tax->tax ?? '--' }}
-                                        @if (!$loop->last)
-                                            ,
-                                        @endif
-                                    @endforeach
-                                </td>--}}
+                                {{--  <td class="text-center text-nowrap">
+                                      @foreach ($invoiceItems->invoiceItemTax as $keys => $tax)
+                                          {{ $tax->tax ?? '--' }}
+                                          @if (!$loop->last)
+                                              ,
+                                          @endif
+                                      @endforeach
+                                  </td>--}}
                                 <td class="text-end text-nowrap">
                                     {{ isset($invoiceItems->total) ? getInvoiceCurrencyAmount($invoiceItems->total, $invoice->currency_id, true) : __('messages.common.n/a') }}
                                 </td>
@@ -259,14 +268,14 @@
                             <table class="w-100">
                                 <tbody>
                                 @if ($invoice->discount > 0)
-                                <tr>
-                                    <td class="py-1 px-0 font-dark-gray text-nowrap">
-                                        <strong>{{ __('messages.invoice.sub_total') . ':' }}</strong>
-                                    </td>
-                                    <td class="text-end font-gray-600 py-1 px-0 fw-bold text-nowrap">
-                                        {{ getInvoiceCurrencyAmount($invoice->amount, $invoice->currency_id, true) }}
-                                    </td>
-                                </tr>
+                                    <tr>
+                                        <td class="py-1 px-0 font-dark-gray text-nowrap">
+                                            <strong>{{ __('messages.invoice.sub_total') . ':' }}</strong>
+                                        </td>
+                                        <td class="text-end font-gray-600 py-1 px-0 fw-bold text-nowrap">
+                                            {{ getInvoiceCurrencyAmount($invoice->amount, $invoice->currency_id, true) }}
+                                        </td>
+                                    </tr>
                                 @endif
                                 @if ($invoice->discount > 0)
 
@@ -366,35 +375,34 @@
                             </td>
                         @endif
                     </tr>
-{{--                    <tr>--}}
-{{--                        <td class="w-25 text-">--}}
-{{--                            <div>--}}
-{{--                                <h6 class="font-dark-gray mb5"><b>{{ __('messages.setting.regards') . ':' }}</b>--}}
-{{--                                </h6>--}}
-{{--                                <p class="fs-6"--}}
-{{--                                {{ $styleCss }}="color:--}}
-{{--                                    {{ $invoice_template_color }}">--}}
-{{--                                {{ html_entity_decode($setting['app_name']) }}</p>--}}
-{{--                            </div>--}}
-{{--                        </td>--}}
-{{--                    </tr>--}}
+                    {{--                    <tr>--}}
+                    {{--                        <td class="w-25 text-">--}}
+                    {{--                            <div>--}}
+                    {{--                                <h6 class="font-dark-gray mb5"><b>{{ __('messages.setting.regards') . ':' }}</b>--}}
+                    {{--                                </h6>--}}
+                    {{--                                <p class="fs-6"--}}
+                    {{--                                {{ $styleCss }}="color:--}}
+                    {{--                                    {{ $invoice_template_color }}">--}}
+                    {{--                                {{ html_entity_decode($setting['app_name']) }}</p>--}}
+                    {{--                            </div>--}}
+                    {{--                        </td>--}}
+                    {{--                    </tr>--}}
                 </table>
 
 
-                    <div class="footer-stamp-container">
-                        <img src="{{ asset('images/stamp.png') }}" alt="Stamp Image" class="footer-stamp">
+                <div class="footer-stamp-container">
+                    <img src="{{ asset('images/stamp.png') }}" alt="Stamp Image" class="footer-stamp">
 
-                        <p class=""
-                                                        {{ $styleCss }}="color:
+                    <p class=""
+                    {{ $styleCss }}="color:
                                                             {{ $invoice_template_color }}">
-                                                        {{ html_entity_decode($setting['app_name']) }}-management</p>
-                    </div>
+                    {{ html_entity_decode($setting['app_name']) }}-management</p>
+                </div>
 
             </div>
         </div>
     </div>
 </div>
-
 
 
 <div class="footer">

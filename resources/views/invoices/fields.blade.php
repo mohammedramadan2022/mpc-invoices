@@ -6,20 +6,20 @@
     <div class="col-lg-4 col-sm-12 mb-lg-0 mb-5">
         @if (!empty(getInvoiceNoPrefix()) || !empty(getInvoiceNoSuffix()))
             <div class="" data-bs-toggle="tooltip" data-bs-trigger="hover" title=""
-                data-bs-original-title="invoice number">
+                 data-bs-original-title="invoice number">
                 <div class="form-group col-sm-12 mb-5">
                     {{ Form::label('paid_amount', __('messages.invoice.invoice_number') . ':', ['class' => 'form-label mb-3 required']) }}
                     <div class="input-group">
                         @if (!empty(getInvoiceNoPrefix()))
                             <a class="input-group-text bg-secondary border-0 text-decoration-none text-black"
-                                data-toggle="tooltip" data-placement="right" title="Invoice No Prefix">
+                               data-toggle="tooltip" data-placement="right" title="Invoice No Prefix">
                                 {{ getInvoiceNoPrefix() }}
                             </a>
                         @endif
                         {{ Form::text('invoice_id', null, ['class' => 'form-control', 'required', 'id' => 'invoiceId', 'maxlength' => 6, 'onkeypress' => 'return blockSpecialChar(event)']) }}
                         @if (!empty(getInvoiceNoSuffix()))
                             <a class="input-group-text bg-secondary border-0 text-decoration-none text-black"
-                                data-toggle="tooltip" data-placement="right" title="Invoice No Suffix">
+                               data-toggle="tooltip" data-placement="right" title="Invoice No Suffix">
                                 {{ getInvoiceNoSuffix() }}
                             </a>
                         @endif
@@ -62,6 +62,20 @@
 
         </div>
     </div>
+    <div class="col-lg-4 col-sm-12">
+        <div class="mb-5">
+            {{ Form::label('service_report_number', __('messages.common.service_report_number') . ':', ['class' => 'form-label required mb-3']) }}
+            {{ Form::text('service_report_number', null,  ['class' => 'form-control form-control-solid', 'placeholder' => __('messages.common.service_report_number'), 'required']) }}
+
+        </div>
+    </div>
+    <div class="col-lg-4 col-sm-12">
+        <div class="mb-5">
+            {{ Form::label('PO', __('messages.common.PO') . ':', ['class' => 'form-label required mb-3']) }}
+            {{ Form::text('po_number', null,  ['class' => 'form-control form-control-solid', 'placeholder' => __('messages.common.PO'), 'required']) }}
+
+        </div>
+    </div>
     <div class="mb-5 col-lg-4 col-sm-12">
         {{ Form::label('templateId', __('messages.setting.invoice_template') . ':', ['class' => 'form-label mb-3']) }}
         {{ Form::select('template_id', $template, getInvoiceSettingTemplateId() ?? null, ['class' => 'form-select io-select2', 'id' => 'templateId', 'required', 'data-control' => 'select2']) }}
@@ -84,9 +98,9 @@
     <div class="mb-5 col-lg-4 col-sm-12 mt-8">
         <label class="form-check form-switch form-check-custom mt-3">
             <input class="form-check-input recurring-status" type="checkbox" name="recurring_status"
-                id="recurringStatusToggle">
+                   id="recurringStatusToggle">
             <span class="form-check-label text-gray-600"
-                for="recurringStatusToggle">{{ __('messages.invoice.this_is_recurring_invoice') }}</span>&nbsp;&nbsp;
+                  for="recurringStatusToggle">{{ __('messages.invoice.this_is_recurring_invoice') }}</span>&nbsp;&nbsp;
         </label>
     </div>
     <div class="mb-5 col-lg-4 col-sm-12 recurring-cycle-content">
@@ -101,60 +115,60 @@
         <div class="table-responsive">
             <table class="table table-striped box-shadow-none mt-4" id="billTbl">
                 <thead>
-                    <tr class="border-bottom fs-7 fw-bolder text-gray-700 text-uppercase">
-                        <th scope="col">#</th>
-                        <th scope="col" class="required">{{ __('messages.Description') }}</th>
-                        <th scope="col" class="required">{{ __('messages.invoice.qty') }}</th>
-                        <th scope="col" class="required">{{ __('messages.common.unit') }}</th>
+                <tr class="border-bottom fs-7 fw-bolder text-gray-700 text-uppercase">
+                    <th scope="col">#</th>
+                    <th scope="col" class="required">{{ __('messages.Description') }}</th>
+                    <th scope="col" class="required">{{ __('messages.invoice.qty') }}</th>
+                    <th scope="col" class="required">{{ __('messages.common.unit') }}</th>
 
-                        <th scope="col" class="required">{{ __('messages.product.unit_price') }}</th>
-{{--                        <th scope="col">{{ __('messages.invoice.tax') }}</th>--}}
-                        <th scope="col" class="required">{{ __('messages.invoice.amount') }}</th>
-                        <th scope="col" class="text-end">{{ __('messages.common.action') }}</th>
-                    </tr>
+                    <th scope="col" class="required">{{ __('messages.product.unit_price') }}</th>
+                    {{--                        <th scope="col">{{ __('messages.invoice.tax') }}</th>--}}
+                    <th scope="col" class="required">{{ __('messages.invoice.amount') }}</th>
+                    <th scope="col" class="text-end">{{ __('messages.common.action') }}</th>
+                </tr>
                 </thead>
                 <tbody class="invoice-item-container">
-                    <tr class="tax-tr">
-                        <td class="text-center item-number align-center">1</td>
-                        <td class="table__item-desc w-25">
-{{--                            {{ Form::select('product_id[]', $products, null, ['class' => 'form-select product io-select2', 'required', 'placeholder' => __('messages.flash.select_product_or_enter_free_text'), 'data-control' => 'select2']) }}--}}
-                            {{ Form::text('product_name[]', null, ['class' => 'form-control form-control-solid', 'required', 'placeholder' => __('messages.flash.select_product_or_enter_free_text')]) }}
+                <tr class="tax-tr">
+                    <td class="text-center item-number align-center">1</td>
+                    <td class="table__item-desc w-25">
+                        {{--                            {{ Form::select('product_id[]', $products, null, ['class' => 'form-select product io-select2', 'required', 'placeholder' => __('messages.flash.select_product_or_enter_free_text'), 'data-control' => 'select2']) }}--}}
+                        {{ Form::text('product_name[]', null, ['class' => 'form-control form-control-solid', 'required', 'placeholder' => __('messages.flash.select_product_or_enter_free_text')]) }}
 
-                        </td>
-                        <td class="table__qty">
-                            {{ Form::number('quantity[]', null, ['class' => 'form-control qty ', 'required', 'type' => 'number', 'min' => '0', 'step' => '.01', 'oninput' => "validity.valid||(value=value.replace(/[e\+\-]/gi,''))"]) }}
-                        </td>
-                        <td class="table__item-desc w-25">
-                            {{--                             {{ Form::select('product_id[]', $products, null, ['class' => 'form-select product-quote io-select2', 'required', 'placeholder' => __('messages.flash.select_product_or_enter_free_text'), 'data-control' => 'select2']) }} --}}
-                            {{ Form::text('unit[]', null, ['class' => 'form-control form-control-solid', 'required', 'placeholder' => __('messages.flash.select_unit_or_enter_free_text')]) }}
-                        </td>
-                        <td>
-                            {{ Form::number('price[]', null, ['class' => 'form-control price-input price ', 'oninput' => "validity.valid||(value=value.replace(/[e\+\-]/gi,''))", 'min' => '0', 'value' => '0', 'step' => '.01', 'pattern' => "^\d*(\.\d{0,2})?$", 'required', 'onKeyPress' => 'if(this.value.length==8) return false;']) }}
-                        </td>
-{{--                        <td>--}}
-{{--                            <select name="tax[]" class='form-select io-select2 fw-bold tax' data-control='select2'--}}
-{{--                                multiple="multiple">--}}
-{{--                                @foreach ($taxes as $tax)--}}
-{{--                                    <option value="{{ $tax->value }}" data-id="{{ $tax->id }}"--}}
-{{--                                        {{ $defaultTax == $tax->id ? 'selected' : '' }}>{{ $tax->name }}</option>--}}
-{{--                                @endforeach--}}
-{{--                            </select>--}}
-{{--                        </td>--}}
-                        <td class="text-end item-total pt-8 text-nowrap">
-                            @if (!getSettingValue('currency_after_amount'))
-                                <span class="invoice-selected-currency">{{ getCurrencySymbol() }}</span>
-                            @endif 0.00
-                            @if (getSettingValue('currency_after_amount'))
-                                <span class="invoice-selected-currency">{{ getCurrencySymbol() }}</span>
-                            @endif
-                        </td>
-                        <td class="text-end">
-                            <button type="button" title="Delete"
+                    </td>
+                    <td class="table__qty">
+                        {{ Form::number('quantity[]', null, ['class' => 'form-control qty ', 'required', 'type' => 'number', 'min' => '0', 'step' => '.01', 'oninput' => "validity.valid||(value=value.replace(/[e\+\-]/gi,''))"]) }}
+                    </td>
+                    <td class="table__item-desc w-25">
+                        {{--                             {{ Form::select('product_id[]', $products, null, ['class' => 'form-select product-quote io-select2', 'required', 'placeholder' => __('messages.flash.select_product_or_enter_free_text'), 'data-control' => 'select2']) }} --}}
+                        {{ Form::text('unit[]', null, ['class' => 'form-control form-control-solid', 'required', 'placeholder' => __('messages.flash.select_unit_or_enter_free_text')]) }}
+                    </td>
+                    <td>
+                        {{ Form::number('price[]', null, ['class' => 'form-control price-input price ', 'oninput' => "validity.valid||(value=value.replace(/[e\+\-]/gi,''))", 'min' => '0', 'value' => '0', 'step' => '.01', 'pattern' => "^\d*(\.\d{0,2})?$", 'required', 'onKeyPress' => 'if(this.value.length==8) return false;']) }}
+                    </td>
+                    {{--                        <td>--}}
+                    {{--                            <select name="tax[]" class='form-select io-select2 fw-bold tax' data-control='select2'--}}
+                    {{--                                multiple="multiple">--}}
+                    {{--                                @foreach ($taxes as $tax)--}}
+                    {{--                                    <option value="{{ $tax->value }}" data-id="{{ $tax->id }}"--}}
+                    {{--                                        {{ $defaultTax == $tax->id ? 'selected' : '' }}>{{ $tax->name }}</option>--}}
+                    {{--                                @endforeach--}}
+                    {{--                            </select>--}}
+                    {{--                        </td>--}}
+                    <td class="text-end item-total pt-8 text-nowrap">
+                        @if (!getSettingValue('currency_after_amount'))
+                            <span class="invoice-selected-currency">{{ getCurrencySymbol() }}</span>
+                        @endif 0.00
+                        @if (getSettingValue('currency_after_amount'))
+                            <span class="invoice-selected-currency">{{ getCurrencySymbol() }}</span>
+                        @endif
+                    </td>
+                    <td class="text-end">
+                        <button type="button" title="Delete"
                                 class="btn btn-icon fs-3 text-danger btn-active-color-danger delete-invoice-item">
-                                <i class="fa-solid fa-trash"></i>
-                            </button>
-                        </td>
-                    </tr>
+                            <i class="fa-solid fa-trash"></i>
+                        </button>
+                    </td>
+                </tr>
                 </tbody>
             </table>
         </div>
@@ -169,73 +183,73 @@
                         </div>
                     </div>
                 </div>
-{{--                <div class="mb-2 col-xl-5 col-lg-8 col-sm-12 float-right">--}}
-{{--                    {{ Form::label('tax2', __('messages.invoice.tax') . ':', ['class' => 'form-label mb-1']) }}--}}
-{{--                    <select name="taxes[]" class='form-select io-select2 fw-bold invoice-taxes' data-control='select2'--}}
-{{--                        multiple="multiple">--}}
-{{--                        @foreach ($taxes as $tax)--}}
-{{--                            <option value="{{ $tax->id }}" data-tax="{{ $tax->value }}">{{ $tax->name }}--}}
-{{--                            </option>--}}
-{{--                        @endforeach--}}
-{{--                    </select>--}}
-{{--                </div>--}}
+                {{--                <div class="mb-2 col-xl-5 col-lg-8 col-sm-12 float-right">--}}
+                {{--                    {{ Form::label('tax2', __('messages.invoice.tax') . ':', ['class' => 'form-label mb-1']) }}--}}
+                {{--                    <select name="taxes[]" class='form-select io-select2 fw-bold invoice-taxes' data-control='select2'--}}
+                {{--                        multiple="multiple">--}}
+                {{--                        @foreach ($taxes as $tax)--}}
+                {{--                            <option value="{{ $tax->id }}" data-tax="{{ $tax->value }}">{{ $tax->name }}--}}
+                {{--                            </option>--}}
+                {{--                        @endforeach--}}
+                {{--                    </select>--}}
+                {{--                </div>--}}
             </div>
             <div class="col-xxl-3 col-lg-5 col-md-6 ms-md-auto mt-4 mb-lg-10 mb-6">
                 <div class="border-top">
                     <table class="table table-borderless box-shadow-none mb-0 mt-5">
                         <tbody>
-                            <tr>
-                                <td class="ps-0">{{ __('messages.invoice.sub_total') . ':' }}</td>
-                                <td class="text-gray-900 text-end pe-0">
-                                    @if (!getSettingValue('currency_after_amount'))
-                                        <span class="invoice-selected-currency">{{ getCurrencySymbol() }}</span>
-                                    @endif <span id="total" class="price">
+                        <tr>
+                            <td class="ps-0">{{ __('messages.invoice.sub_total') . ':' }}</td>
+                            <td class="text-gray-900 text-end pe-0">
+                                @if (!getSettingValue('currency_after_amount'))
+                                    <span class="invoice-selected-currency">{{ getCurrencySymbol() }}</span>
+                                @endif <span id="total" class="price">
                                         0
                                     </span>
-                                    @if (getSettingValue('currency_after_amount'))
-                                        <span class="invoice-selected-currency">{{ getCurrencySymbol() }}</span>
-                                    @endif
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="ps-0">{{ __('messages.invoice.discount') . ':' }}</td>
-                                <td class="text-gray-900 text-end pe-0">
-                                    @if (!getSettingValue('currency_after_amount'))
-                                        <span class="invoice-selected-currency">{{ getCurrencySymbol() }}</span>
-                                    @endif <span id="discountAmount">
+                                @if (getSettingValue('currency_after_amount'))
+                                    <span class="invoice-selected-currency">{{ getCurrencySymbol() }}</span>
+                                @endif
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="ps-0">{{ __('messages.invoice.discount') . ':' }}</td>
+                            <td class="text-gray-900 text-end pe-0">
+                                @if (!getSettingValue('currency_after_amount'))
+                                    <span class="invoice-selected-currency">{{ getCurrencySymbol() }}</span>
+                                @endif <span id="discountAmount">
                                         0
                                     </span>
-                                    @if (getSettingValue('currency_after_amount'))
-                                        <span class="invoice-selected-currency">{{ getCurrencySymbol() }}</span>
-                                    @endif
-                                </td>
-                            </tr>
-{{--                            <tr>--}}
-{{--                                <td class="ps-0">{{ __('messages.invoice.total_tax') . ':' }}</td>--}}
-{{--                                <td class="text-gray-900 text-end pe-0">--}}
-{{--                                    @if (!getSettingValue('currency_after_amount'))--}}
-{{--                                        <span class="invoice-selected-currency">{{ getCurrencySymbol() }}</span>--}}
-{{--                                    @endif <span id="totalTax">--}}
-{{--                                        0--}}
-{{--                                    </span>--}}
-{{--                                    @if (getSettingValue('currency_after_amount'))--}}
-{{--                                        <span class="invoice-selected-currency">{{ getCurrencySymbol() }}</span>--}}
-{{--                                    @endif--}}
-{{--                                </td>--}}
-{{--                            </tr>--}}
-                            <tr>
-                                <td class="ps-0">{{ __('messages.invoice.total') . ':' }}</td>
-                                <td class="text-gray-900 text-end pe-0">
-                                    @if (!getSettingValue('currency_after_amount'))
-                                        <span class="invoice-selected-currency">{{ getCurrencySymbol() }}</span>
-                                    @endif <span id="finalAmount">
+                                @if (getSettingValue('currency_after_amount'))
+                                    <span class="invoice-selected-currency">{{ getCurrencySymbol() }}</span>
+                                @endif
+                            </td>
+                        </tr>
+                        {{--                            <tr>--}}
+                        {{--                                <td class="ps-0">{{ __('messages.invoice.total_tax') . ':' }}</td>--}}
+                        {{--                                <td class="text-gray-900 text-end pe-0">--}}
+                        {{--                                    @if (!getSettingValue('currency_after_amount'))--}}
+                        {{--                                        <span class="invoice-selected-currency">{{ getCurrencySymbol() }}</span>--}}
+                        {{--                                    @endif <span id="totalTax">--}}
+                        {{--                                        0--}}
+                        {{--                                    </span>--}}
+                        {{--                                    @if (getSettingValue('currency_after_amount'))--}}
+                        {{--                                        <span class="invoice-selected-currency">{{ getCurrencySymbol() }}</span>--}}
+                        {{--                                    @endif--}}
+                        {{--                                </td>--}}
+                        {{--                            </tr>--}}
+                        <tr>
+                            <td class="ps-0">{{ __('messages.invoice.total') . ':' }}</td>
+                            <td class="text-gray-900 text-end pe-0">
+                                @if (!getSettingValue('currency_after_amount'))
+                                    <span class="invoice-selected-currency">{{ getCurrencySymbol() }}</span>
+                                @endif <span id="finalAmount">
                                         0
                                     </span>
-                                    @if (getSettingValue('currency_after_amount'))
-                                        <span class="invoice-selected-currency">{{ getCurrencySymbol() }}</span>
-                                    @endif
-                                </td>
-                            </tr>
+                                @if (getSettingValue('currency_after_amount'))
+                                    <span class="invoice-selected-currency">{{ getCurrencySymbol() }}</span>
+                                @endif
+                            </td>
+                        </tr>
                         </tbody>
                     </table>
                 </div>
@@ -267,12 +281,12 @@
 <div class="float-end">
     <div class="form-group col-sm-12">
         <button type="button" name="draft" class="btn btn-primary mx-1 ms-ms-3 mb-3 mb-sm-0" id="saveAsDraft"
-            data-status="0" value="0">{{ __('messages.common.save_draft') }}
+                data-status="0" value="0">{{ __('messages.common.save_draft') }}
         </button>
         <button type="button" name="save" class="btn btn-primary mx-1 ms-ms-3 mb-3 mb-sm-0" id="saveAndSend"
-            data-status="1" value="1">{{ __('messages.common.save_send') }}
+                data-status="1" value="1">{{ __('messages.common.save_send') }}
         </button>
         <a href="{{ route('invoices.index') }}"
-            class="btn btn-secondary btn-active-light-primary">{{ __('messages.common.cancel') }}</a>
+           class="btn btn-secondary btn-active-light-primary">{{ __('messages.common.cancel') }}</a>
     </div>
 </div>

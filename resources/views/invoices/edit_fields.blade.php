@@ -38,6 +38,22 @@
 
     </div>
 </div>
+
+
+<div class="col-lg-4 col-sm-12">
+    <div class="mb-5">
+        {{ Form::label('service_report_number', __('messages.common.service_report_number') . ':', ['class' => 'form-label required mb-3']) }}
+        {{ Form::text('service_report_number', isset($invoice) ? $invoice->service_report_number : null,  ['class' => 'form-control form-control-solid', 'placeholder' => __('messages.common.service_report_number'), 'required']) }}
+
+    </div>
+</div>
+<div class="col-lg-4 col-sm-12">
+    <div class="mb-5">
+        {{ Form::label('PO', __('messages.common.PO') . ':', ['class' => 'form-label required mb-3']) }}
+        {{ Form::text('po_number', isset($invoice) ? $invoice->po_number : null ,  ['class' => 'form-control form-control-solid', 'placeholder' => __('messages.common.PO'), 'required']) }}
+
+    </div>
+</div>
 <div class="row mb-2">
     <div class="mb-5 col-lg-3 col-sm-12">
         {{ Form::label('invoice_date', __('messages.invoice.invoice_date') . ':', ['class' => 'form-label required mb-3']) }}

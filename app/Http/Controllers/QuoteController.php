@@ -158,7 +158,7 @@ class QuoteController extends AppBaseController
         $url = route('invoices.getLastInvoiceId');
         $response = Http::get($url);
 
-        $lastInvoiceId =self::getLastInvoiceId($quoteData['client_id']);
+        $lastInvoiceId = self::getLastInvoiceId($quoteData['client_id']);
 
         if (!empty(getInvoiceNoPrefix())) {
             $quoteData['quote_id'] = getInvoiceNoPrefix() . '-' . $lastInvoiceId;
@@ -200,25 +200,39 @@ class QuoteController extends AppBaseController
     }
 
 
-    public static function getLastInvoiceId($clientId)
+    public static function getLastInvoiceId($clientId, $skip = 0)
     {
+        // Get the client
+        $client = Client::whereId($clientId)->first();
 
+        // Get the last invoice by skipping the number of records indicated by $skip
+        $lastInvoice = Invoice::where('client_id', $clientId)
+            ->latest('invoice_id')
+            ->skip($skip)
+            ->first();
 
-        $client = Client::whereId( $clientId)
-        ->first();
+        // If there is no invoice, return the client's invoice start or 1
+        if (!$lastInvoice) {
+            return $client ? $client->invoice_start : 1;
+        }
 
-        $lastInvoice = Invoice::where('client_id', $clientId)->latest('invoice_id')->first();
+        // Extract the numerical part of the invoice ID
+        if (preg_match('/(\d+)$/', $lastInvoice->invoice_id, $matches)) {
+            // If a valid number is found, return the incremented invoice ID
+            return self::getLastIvoicePlus1($lastInvoice->invoice_id);
+        }
 
-        return $lastInvoice ? self::getLastIvoicePlus1($lastInvoice->invoice_id) : ($client ? $client->invoice_start : 1);
-
+        // If no match is found, increment $skip and recursively call the function
+        return self::getLastInvoiceId($clientId, $skip + 1);
     }
+
 
     public static function getLastIvoicePlus1($invoiceNumber)
     {
+
         preg_match('/(\d+)$/', $invoiceNumber, $matches);
 
         if (isset($matches[1])) {
-            // Extract the numeric part
             $number = intval($matches[1]);
 
             // Increment the number
@@ -228,7 +242,7 @@ class QuoteController extends AppBaseController
             return $incrementedNumber;
         }
 
-        return $invoiceNumber +1;
+        return $invoiceNumber + 1;
     }
 
 

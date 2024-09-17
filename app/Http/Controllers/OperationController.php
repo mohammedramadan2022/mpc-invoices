@@ -12,7 +12,6 @@ class OperationController extends Controller
     public function getLastInvoiceId(Request $request)
     {
 
-
         $clientId = $request->input('client_id');
 
 
@@ -33,6 +32,8 @@ class OperationController extends Controller
 
     public static function getLastIvoicePlus1($invoiceNumber)
     {
+
+        dd($invoiceNumber);
         preg_match('/(\d+)$/', $invoiceNumber, $matches);
 
         if (isset($matches[1])) {

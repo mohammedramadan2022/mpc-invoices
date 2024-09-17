@@ -2,20 +2,21 @@
 
 namespace App\Livewire;
 
-use App\Models\Product;
+use App\Models\Role;
 use Illuminate\Database\Eloquent\Builder;
+use Livewire\Component;
 use Rappasoft\LaravelLivewireTables\Views\Column;
 
-class ProductTable extends LivewireTableComponent
+class RolesTable extends Component
 {
-    protected $model = Product::class;
+    protected $model = Role::class;
 
-    protected string $tableName = 'products';
+    protected string $tableName = 'roles';
 
     // for table header button
     public $showButtonOnHeader = true;
 
-    public $buttonComponent = 'products.components.add-button';
+    public $buttonComponent = 'roles.components.add-button';
 
     public function configure(): void
     {
@@ -24,15 +25,9 @@ class ProductTable extends LivewireTableComponent
         $this->setQueryStringStatus(false);
 
         $this->setThAttributes(function (Column $column) {
-            if ($column->getField() == 'id') {
+            if ($column->getField() === 'id') {
                 return [
                     'style' => 'width:9%;text-align:center',
-                ];
-            }
-
-            if ($column->getField() == 'unit_price') {
-                return [
-                    'class' => 'd-flex justify-content-end',
                 ];
             }
 
@@ -45,9 +40,9 @@ class ProductTable extends LivewireTableComponent
                     'class' => 'text-center',
                 ];
             }
-            if ($column->getField() === 'unit_price') {
+            if ($column->getField() === 'name') {
                 return [
-                    'class' => 'customWidth',
+                    'class' => 'text-left customWidth',
                 ];
             }
 
@@ -58,28 +53,23 @@ class ProductTable extends LivewireTableComponent
     public function columns(): array
     {
         return [
-            Column::make(__('messages.product.product_name'), 'name')
-                ->sortable()
+            Column::make(__('Role Name'), 'name')
                 ->searchable()
-                ->view('products.components.product-name'),
-                Column::make(__('messages.product.generate_code'), 'code')->searchable()->hideIf(1),
-            Column::make(__('messages.product.category'), 'category.name')
+                ->sortable(),
+
+            Column::make(__('Created At'), 'created_at')
                 ->sortable()
-                ->searchable()
                 ->format(function ($value, $row, Column $column) {
-                    return $row->category->name;
+                    return $row->created_at->format('Y-m-d');
                 }),
-            Column::make(__('messages.product.price'), 'unit_price')
-                ->sortable()
-                ->searchable()
-                ->view('products.components.price'),
-            Column::make(__('messages.common.action'), 'id')
+
+            Column::make(__('Action'), 'id')
                 ->format(function ($value, $row, Column $column) {
                     return view('livewire.action-button')
                         ->with([
-                            'editRoute' => route('products.edit', $row->id),
+                            'editRoute' => route('roles.edit', $row->id),
                             'dataId' => $row->id,
-                            'deleteClass' => 'product-delete-btn',
+                            'deleteClass' => 'role-delete-btn',
                         ]);
                 }),
         ];
@@ -87,12 +77,12 @@ class ProductTable extends LivewireTableComponent
 
     public function builder(): Builder
     {
-        return Product::with(['category','media'])->select('products.*');
+        return Role::with('permissions')->select('roles.*');
     }
 
     public function resetPageTable()
     {
-        $this->customResetPage('productsPage');
+        $this->customResetPage('rolesPage');
     }
 
     public function placeholder()

@@ -4,6 +4,7 @@
             id="paymentDateFilter">
     </div>
 </div>
+@can('payments.excel')
 <div class="dropdown my-3 my-sm-3 me-2">
     <button class="btn btn-success text-white dropdown-toggle" type="button" data-bs-toggle="dropdown"
         aria-expanded="false">
@@ -18,8 +19,13 @@
         </a>
     </ul>
 </div>
+
+@endcan
+@can('payments.create')
 <div>
     <button type="button" class="btn btn-primary addPayment">
         {{ __('messages.payment.add_payment') }}
     </button>
 </div>
+
+@endcan

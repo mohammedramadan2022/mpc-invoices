@@ -61,11 +61,17 @@ class ClientTable extends LivewireTableComponent
                 ->view('clients.components.invoice-count'),
             Column::make(__('messages.common.action'), 'id')
                 ->format(function ($value, $row, Column $column) {
+
+                    $canEdit = auth()->user()->can('clients.edit');
+                    $canDelete = auth()->user()->can('clients.destroy');
                     return view('livewire.action-button')->with([
                         'editRoute' => route('clients.edit', $row->id),
                         'dataId' => $row->id,
-                        'editClass' => 'user-edit-btn',
-                        'deleteClass' => 'client-delete-btn',
+
+                        'editClass' => $canEdit ? 'user-edit-btn' : null,
+                        'deleteClass' =>$canDelete ? 'client-delete-btn':null,
+                        'canEdit' => $canEdit, // Pass the permission check to the view
+                        'canDelete' => $canDelete, // Pass the permission check to the view
                     ]);
                 }),
         ];
