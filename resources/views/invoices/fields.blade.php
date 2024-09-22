@@ -132,7 +132,8 @@
                     <td class="text-center item-number align-center">1</td>
                     <td class="table__item-desc w-25">
                         {{--                            {{ Form::select('product_id[]', $products, null, ['class' => 'form-select product io-select2', 'required', 'placeholder' => __('messages.flash.select_product_or_enter_free_text'), 'data-control' => 'select2']) }}--}}
-                        {{ Form::text('product_name[]', null, ['class' => 'form-control form-control-solid', 'required', 'placeholder' => __('messages.flash.select_product_or_enter_free_text')]) }}
+{{--                        {{ Form::text('product_name[]', null, ['class' => 'form-control form-control-solid', 'required', 'placeholder' => __('messages.flash.select_product_or_enter_free_text')]) }}--}}
+                        {{ Form::textarea('product_name[]', null, ['class' => 'form-control', 'required', 'rows' => '2' ,'placeholder' => __('messages.flash.select_product_or_enter_free_text')])}}
 
                     </td>
                     <td class="table__qty">

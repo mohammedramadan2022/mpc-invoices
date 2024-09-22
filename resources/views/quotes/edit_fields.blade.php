@@ -71,7 +71,7 @@
                         <tr class="tax-tr">
                             <td class="text-center item-number align-center">{{ $i++ }}</td>
                             <td class="table__item-desc w-25">
-                                {{ Form::text('product_name[]', isset($quoteItem->product_id) ? $quoteItem->product_id : ($quoteItem->product_name ?? ''), ['class' => 'form-control form-control-solid', 'required' => true, 'placeholder' => __('messages.flash.select_product_or_enter_free_text')]) }}
+{{--                                {{ Form::text('product_name[]', isset($quoteItem->product_id) ? $quoteItem->product_id : ($quoteItem->product_name ?? ''), ['class' => 'form-control form-control-solid', 'required' => true, 'placeholder' => __('messages.flash.select_product_or_enter_free_text')]) }}--}}
 
                                 {{ Form::textarea('product_name[]', isset($quoteItem->product_id) ? $quoteItem->product_id : ($quoteItem->product_name ?? ''), ['class' => 'form-control', 'rows' => '2']) }}
 

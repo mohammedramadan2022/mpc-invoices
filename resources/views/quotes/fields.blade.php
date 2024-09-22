@@ -99,6 +99,7 @@
 {{--                            {{ Form::text('product_name[]', null, ['class' => 'form-control form-control-solid', 'required', 'placeholder' => __('messages.flash.select_product_or_enter_free_text')]) }}--}}
 
                             {{ Form::textarea('product_name[]', null, ['class' => 'form-control', 'id' => 'quoteNote', 'rows' => '2']) }}
+                            {{ Form::textarea('product_name[]', null, ['class' => 'form-control', 'required', 'rows' => '2' ,'placeholder' => __('messages.flash.select_product_or_enter_free_text')])}}
 
                         </td>
                         <td class="table__qty">
