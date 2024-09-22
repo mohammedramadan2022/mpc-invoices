@@ -396,7 +396,7 @@
                     <p class=""
                     {{ $styleCss }}="color:
                                                             {{ $invoice_template_color }}">
-                    {{ html_entity_decode($setting['app_name']) }}-management</p>
+                    {{ html_entity_decode($setting['app_name']) }}-MANAGEMENT</p>
                 </div>
 
             </div>
