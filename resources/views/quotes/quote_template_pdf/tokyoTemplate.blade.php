@@ -14,7 +14,7 @@
         }
 
         @page {
-            margin-top: 40px !important;
+            margin-top: -30px !important;
         }
 
         @if (getCurrencySymbol() == '€')
@@ -42,11 +42,11 @@
             left: 0;
             padding: 100px;
             /* Add padding around the stamp image */
-            /*z-index: 10; !* Ensure the stamp is above other content *!*/
+            z-index: 9999; /* Ensure the stamp is above other content */
         }
 
         .footer-stamp {
-            width: 200px;
+            width: 150px;
             /* Adjust the width as needed */
             height: auto;
         }
@@ -69,8 +69,7 @@
 
         .footer img {
             width: 100% !important;
-            /* Adjust the image width as needed */
-            /*max-width: 200px; !* Example maximum width *!*/
+
             height: auto;
             padding-bottom: 10px;
         }

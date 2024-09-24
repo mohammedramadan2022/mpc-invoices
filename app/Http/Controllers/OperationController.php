@@ -15,10 +15,7 @@ class OperationController extends Controller
         $clientId = $request->input('client_id');
 
 
-        $client = Client::whereHas('user', function ($query) use ($clientId) {
-
-            $query->where('users.id', $clientId);
-        })->first();
+        $client = Client::whereId($clientId)->first();
 
 
         $lastInvoice = Invoice::where('client_id', $client->id)->latest('invoice_id')->first();
@@ -33,7 +30,6 @@ class OperationController extends Controller
     public static function getLastIvoicePlus1($invoiceNumber)
     {
 
-        dd($invoiceNumber);
         preg_match('/(\d+)$/', $invoiceNumber, $matches);
 
         if (isset($matches[1])) {
@@ -57,10 +53,7 @@ class OperationController extends Controller
         $clientId = $request->input('client_id');
 
 
-        $client = Client::whereHas('user', function ($query) use ($clientId) {
-
-            $query->where('users.id', $clientId);
-        })->first();
+        $client = Client::whereId($clientId)->first();
         $lastQuote = Quote::where('client_id', $client->id)->latest('quote_id')->first();
         return response()->json([
             'last_quote_id' => $lastQuote ? $lastQuote->quote_id + 1 : ($client ? $client->quote_start : 1),

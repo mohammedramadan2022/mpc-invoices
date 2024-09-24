@@ -65,6 +65,7 @@ class QuoteController extends AppBaseController
 
     public function store(CreateQuoteRequest $request): JsonResponse
     {
+
         try {
             DB::beginTransaction();
             $request->status = Quote::DRAFT;

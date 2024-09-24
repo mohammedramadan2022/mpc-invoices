@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use App\Models\Quote;
+use App\Rules\UniqueWithClient;
 use Illuminate\Foundation\Http\FormRequest;
 
 class UpdateQuoteRequest extends FormRequest
@@ -18,7 +19,10 @@ class UpdateQuoteRequest extends FormRequest
     public function rules(): array
     {
         $rules = Quote::$rules;
-        $rules['quote_id'] = 'required|unique:quotes,quote_id,'.$this->route('quote')->id;
+        $rules['quote_id'] = [
+            'required',
+            new UniqueWithClient('quotes', 'quote_id', 'client_id', $this->route('quote')->id)
+        ];
 
         return $rules;
     }

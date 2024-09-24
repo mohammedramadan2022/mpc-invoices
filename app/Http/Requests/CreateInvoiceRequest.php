@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use App\Models\Invoice;
+use App\Rules\UniqueWithClient;
 use Illuminate\Foundation\Http\FormRequest;
 
 class CreateInvoiceRequest extends FormRequest
@@ -20,7 +21,17 @@ class CreateInvoiceRequest extends FormRequest
      */
     public function rules(): array
     {
-        return Invoice::$rules;
+        return [
+            'client_id' => 'required',
+            'invoice_id' => [
+                'required',
+                new UniqueWithClient('invoices', 'invoice_id', 'client_id', null)
+            ],
+            'invoice_date' => 'required',
+            'due_date' => 'required',
+            'shop_name' => 'required',
+            'location' => 'required',
+        ];
     }
 
     public function messages(): array

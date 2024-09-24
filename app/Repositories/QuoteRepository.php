@@ -78,7 +78,19 @@ class QuoteRepository extends BaseRepository
             $data['products'] = $data['products'] + $data['productItem'];
         }
         $data['associateProducts'] = $this->getAssociateProductList($quote);
-        $data['clients'] = User::whereHas('client')->get()->pluck('full_name', 'id')->toArray();
+        $data['clients'] = User::whereHas('client')
+            ->with('client')
+            ->get()
+            ->map(function ($user) {
+                return [
+                    'client_id' => $user->client->id,
+                    'full_name' => $user->full_name,
+                ];
+            })
+            ->pluck('full_name', 'client_id')
+            ->toArray();
+
+
         $data['discount_type'] = Quote::DISCOUNT_TYPE;
         $quoteStatusArr = Arr::only(Quote::STATUS_ARR, Quote::DRAFT);
         $quoteRecurringArr = Quote::RECURRING_ARR;
@@ -115,8 +127,9 @@ class QuoteRepository extends BaseRepository
             if ($input['final_amount'] == 'NaN') {
                 $input['final_amount'] = 0;
             }
+
             $quoteItemInputArray = Arr::only($input, ['product_name', 'quantity', 'price','unit']);
-            $quoteExist = Quote::where('quote_id', $input['quote_id'])->exists();
+//            $quoteExist = Quote::where('quote_id', $input['quote_id'])->exists();
             $quoteItemInput = $this->prepareInputForQuoteItem($quoteItemInputArray);
 
             $total = [];
@@ -128,17 +141,20 @@ class QuoteRepository extends BaseRepository
                     throw new UnprocessableEntityHttpException('Discount amount should not be greater than sub total.');
                 }
             }
-            if ($quoteExist) {
-                throw new UnprocessableEntityHttpException('Quote id already exist');
-            }
 
-            /** @var Quote $quote */
-            $input['client_id'] = Client::whereUserId($input['client_id'])->first()->id;
+//            if ($quoteExist) {
+//                throw new UnprocessableEntityHttpException('Quote id already exist');
+//            }
+
+
+            $input['client_id'] = Client::whereId($input['client_id'])->first()->id;
             $input = Arr::only($input, [
                 'client_id', 'quote_id', 'quote_date', 'due_date', 'discount_type', 'discount', 'final_amount',
                 'note', 'term', 'template_id', 'status','shop_name','location'
             ]);
+
             $quote = Quote::create($input);
+
             $totalAmount = 0;
             foreach ($quoteItemInput as $key => $data) {
 
@@ -209,7 +225,7 @@ class QuoteRepository extends BaseRepository
             }
 
             /** @var Quote $quote */
-            $input['client_id'] = Client::whereUserId($input['client_id'])->first()->id;
+            $input['client_id'] = Client::whereId($input['client_id'])->first()->id;
             $input['quote_date'] = Carbon::parse($input['due_date'])->format('Y-m-d');
             $input['due_date'] = Carbon::parse($input['due_date'])->format('Y-m-d');
             $quote = $this->update(Arr::only($input,

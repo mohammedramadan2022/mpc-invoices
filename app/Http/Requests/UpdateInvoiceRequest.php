@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use App\Models\Invoice;
+use App\Rules\UniqueWithClient;
 use Illuminate\Foundation\Http\FormRequest;
 
 class UpdateInvoiceRequest extends FormRequest
@@ -18,7 +19,9 @@ class UpdateInvoiceRequest extends FormRequest
     public function rules(): array
     {
         $rules = Invoice::$rules;
-        $rules['invoice_id'] = 'required|unique:invoices,invoice_id,'.$this->route('invoice')->id;
+        $rules['invoice_id'] = [
+            'required',
+            new UniqueWithClient('invoices', 'invoice_id', 'client_id', $this->route('invoice')->id)        ];
 
         return $rules;
     }
