@@ -11,7 +11,8 @@
     <!--    </td> -->
     <!--    -->
         <td class="table__item-desc w-25">
-           <input type="text" name="product_name[]" value="" class="form-control form-control-solid" required placeholder="">
+<!--           <input type="" name="product_name[]" value="" class="form-control form-control-solid" required placeholder="">-->
+<textarea name="product_name[]" class="form-control" required rows="2" placeholder=""></textarea>
 
         </td>
         <td class="table__qty">
