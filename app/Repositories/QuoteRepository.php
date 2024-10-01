@@ -147,12 +147,13 @@ class QuoteRepository extends BaseRepository
 //            }
 
 
-            $input['client_id'] = Client::whereId($input['client_id'])->first()->id;
+//            $input['client_id'] = Client::whereUserId($input['client_id'])->first()->id;
             $input = Arr::only($input, [
                 'client_id', 'quote_id', 'quote_date', 'due_date', 'discount_type', 'discount', 'final_amount',
                 'note', 'term', 'template_id', 'status','shop_name','location'
             ]);
 
+//            dd($input);
             $quote = Quote::create($input);
 
             $totalAmount = 0;
@@ -225,7 +226,7 @@ class QuoteRepository extends BaseRepository
             }
 
             /** @var Quote $quote */
-            $input['client_id'] = Client::whereId($input['client_id'])->first()->id;
+//            $input['client_id'] = Client::whereUserId($input['client_id'])->first()->id;
             $input['quote_date'] = Carbon::parse($input['due_date'])->format('Y-m-d');
             $input['due_date'] = Carbon::parse($input['due_date'])->format('Y-m-d');
             $quote = $this->update(Arr::only($input,
@@ -361,7 +362,7 @@ class QuoteRepository extends BaseRepository
         ])->whereId($quote->id)->first();
 
         $data = $this->getSyncList([$quote]);
-        $data['client_id'] = $quote->client->user_id;
+//        $data['client_id'] = $quote->client->user_id;
         $data['$quote'] = $quote;
 
         $quoteItems = $quote->quoteItems;

@@ -199,7 +199,7 @@ class InvoiceRepository extends BaseRepository
                 throw new UnprocessableEntityHttpException('Invoice id already exist');
             }
             /** @var Invoice $invoice */
-            $input['client_id'] = Client::whereId($input['client_id'])->first()->id;
+//            $input['client_id'] = Client::whereUserId($input['client_id'])->first()->id;
             $input = Arr::only($input, [
                 'client_id', 'invoice_id', 'invoice_date', 'due_date', 'discount_type', 'discount', 'amount', 'final_amount',
                 'note', 'term', 'template_id', 'payment_qr_code_id', 'status','service_report_number','po_number','shop_name','location', 'tax_id', 'tax', 'currency_id', 'recurring_status', 'recurring_cycle',
@@ -313,7 +313,7 @@ class InvoiceRepository extends BaseRepository
             }
 
             /** @var Invoice $invoice */
-            $input['client_id'] = Client::whereId($input['client_id'])->first()->id;
+//            $input['client_id'] = Client::whereUserId($input['client_id'])->first()->id;
             $invoice = $this->update(Arr::only(
                 $input,
                 [
@@ -407,7 +407,7 @@ class InvoiceRepository extends BaseRepository
             'client',
         ])->whereId($invoice->id)->firstOrFail();
         $data = $this->getSyncList([$invoice]);
-        $data['client_id'] = $invoice->client->user_id;
+//        $data['client_id'] = $invoice->client->user_id;
         $data['invoice'] = $invoice;
         $data['paymentQrCodes'] = PaymentQrCode::pluck('title', 'id')->toArray();
 

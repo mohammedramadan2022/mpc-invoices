@@ -127,8 +127,7 @@
                     <tr class="tax-tr">
                         <td class="text-center item-number align-center">{{ $i++ }}</td>
                         <td class="table__item-desc w-25">
-{{--                            {{ Form::select('product_name[]', $products, isset($invoiceItem->product_id) ? $invoiceItem->product_id : $invoiceItem->product_name ?? [], ['class' => 'form-control form-control-solid', 'required', 'required', 'placeholder' => __('messages.flash.select_product_or_enter_free_text')]) }}--}}
-                            {{ Form::textarea('product_name[]', isset($invoiceItem->product_id) ? $invoiceItem->product_id : ($invoiceItem->product_name ?? ''), ['class' => 'form-control', 'rows' => '2', 'required', 'placeholder' => __('messages.flash.select_product_or_enter_free_text')]) }}
+                            {{ Form::select('product_name[]', $products, isset($invoiceItem->product_id) ? $invoiceItem->product_id : $invoiceItem->product_name ?? [], ['class' => 'form-control form-control-solid', 'required', 'required', 'placeholder' => __('messages.flash.select_product_or_enter_free_text')]) }}
 
 
                             {{ Form::hidden('id[]', $invoiceItem->id) }}
