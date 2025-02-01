@@ -6,7 +6,7 @@
         </a>
     @endif
 
-    @if(isset($editRoute) && $canEdit)
+    @if(isset($editRoute) &&  isset($canEdit) && $canEdit)
         <a href="{{ $editRoute }}"
            class="btn px-2 text-primary fs-3 py-2 {{ $editRoute ?? '' }}  @isset($isDefaultAdmin) {{$isDefaultAdmin == 1 ? 'd-none' : ''}}"
            @endisset data-bs-toggle="tooltip" title="{{__('messages.common.edit')}}">
@@ -14,7 +14,7 @@
         </a>
     @endif
 
-        @if( $canDelete)
+        @if( isset($canDelete) &&  $canDelete)
 
         <a href="javascript:void(0)" data-id="{{ $dataId}}"
        class="delete-btn btn px-2 text-danger fs-3 py-2 {{ $deleteClass ?? '' }}  @isset($isDefaultAdmin) {{$isDefaultAdmin == 1 ? 'd-none' : ''}}"

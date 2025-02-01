@@ -56,6 +56,10 @@ class UserTable extends LivewireTableComponent
                 ->searchable()->hideIf(1),
             Column::make(__('messages.common.action'), 'id')
                 ->format(function ($value, $row, Column $column) {
+                    $canEdit = auth()->user()->can('users.edit');
+$canDelete = auth()->user()->can('users.destroy');
+
+                    
                     return view('livewire.action-button')->with([
                         'editRoute'      => route('users.edit', $row->id),
                         'dataId'         => $row->id,
@@ -63,6 +67,8 @@ class UserTable extends LivewireTableComponent
                         'editClass'      => 'user-edit-btn',
                         'deleteClass'    => 'user-delete-btn',
                         'isDefaultAdmin' => $row->is_default_admin,
+                        'canEdit' => $canEdit, // Pass the permission check to the view
+                        'canDelete' => $canDelete, // Pass the permission check to the view
                     ]);
                 }),
                   Column::make(__('messages.permissions'), 'id')
@@ -74,6 +80,7 @@ class UserTable extends LivewireTableComponent
                         'editClass'      => 'user-edit-btn',
                         'deleteClass'    => 'user-delete-btn',
                         'isDefaultAdmin' => $row->is_default_admin,
+                        
                     ]);
                 }),
         ];
