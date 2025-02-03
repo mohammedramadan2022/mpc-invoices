@@ -6,6 +6,7 @@ use App\Models\Invoice;
 use App\Models\Client;
 use App\Models\Quote;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class OperationController extends Controller
 {
@@ -18,7 +19,9 @@ class OperationController extends Controller
         $client = Client::whereId($clientId)->first();
 
 
-        $lastInvoice = Invoice::where('client_id', $client->id)->latest('invoice_id')->first();
+        $lastInvoice = Invoice::where('client_id', $client->id)
+            ->orderBy(DB::raw('CAST(quote_id AS UNSIGNED)'), 'DESC')
+            ->first();
 
 
 
@@ -54,7 +57,9 @@ class OperationController extends Controller
 
 
         $client = Client::whereId($clientId)->first();
-        $lastQuote = Quote::where('client_id', $client->id)->latest('quote_id')->first();
+        $lastQuote = Quote::where('client_id', $client->id)
+            ->orderBy(DB::raw('CAST(quote_id AS UNSIGNED)'), 'DESC')
+            ->first();
         return response()->json([
             'last_quote_id' => $lastQuote ? $lastQuote->quote_id + 1 : ($client ? $client->quote_start : 1),
         ]);
