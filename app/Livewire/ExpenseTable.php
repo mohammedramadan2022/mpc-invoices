@@ -2,20 +2,20 @@
 
 namespace App\Livewire;
 
-use App\Models\Category;
+use App\Models\Expense;
 use Rappasoft\LaravelLivewireTables\Views\Column;
 use Illuminate\Database\Eloquent\Builder;
 
-class CategoryTable extends LivewireTableComponent
+class ExpenseTable extends LivewireTableComponent
 {
-    protected $model = Category::class;
+    protected $model = Expense::class;
 
-    protected string $tableName = 'categories';
+    protected string $tableName = 'expenses';
 
     // for table header button
     public $showButtonOnHeader = true;
 
-    public $buttonComponent = 'category.components.add-button';
+    public $buttonComponent = 'expense.components.add-button';
 
     public function configure(): void
     {
@@ -49,27 +49,22 @@ class CategoryTable extends LivewireTableComponent
     public function columns(): array
     {
         return [
-            Column::make(__('messages.category.category'), 'name')
+            Column::make(__('messages.expense.expense'), 'name')
                 ->sortable()
                 ->searchable(),
-            Column::make(__('messages.product.product'))
-                ->label(fn($row) => $row->products_count)
-                ->sortable(fn(Builder $query, string $direction) => $query->orderBy('products_count', $direction))
-                ->format(function ($value, $row, Column $column) {
-                    return $row->products_count;
-                }),
+
             Column::make(__('messages.common.action'), 'id')
                 ->format(function ($value, $row, Column $column) {
 
-                   $canEdit =true;
-                   $canDelete =true;
+                    $canEdit = auth()->user()->can('expense.edit');
+                    $canDelete = auth()->user()->can('expense.destroy');
                     return view('livewire.modal-action-button')
                         ->with([
                             'dataId' => $row->id,
-                            'editClass' => 'category-edit-btn',
-                            'deleteClass' => 'category-delete-btn',
-                            'canEdit' =>$canEdit,
+                            'editClass' => 'expense-edit-btn',
+                            'canEdit' => $canEdit,
                             'canDelete' => $canDelete,
+                            'deleteClass' => 'expense-delete-btn',
                         ]);
                 }),
         ];
@@ -77,12 +72,12 @@ class CategoryTable extends LivewireTableComponent
 
     public function builder(): Builder
     {
-        return Category::query()->withCount('products');
+        return Expense::query();
     }
 
     public function resetPageTable()
     {
-        $this->customResetPage('categoriesPage');
+        $this->customResetPage('expensesPage');
     }
 
     public function placeholder()
