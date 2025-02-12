@@ -37,14 +37,6 @@
         <span class="aside-menu-title">{{ __('messages.categories') }}</span>
     </a>
 </li>
-<li class="nav-item {{ Request::is('admin/expenses*') ? 'active' : '' }}">
-    <a class="nav-link d-flex align-items-center py-3" aria-current="page" href="{{ route('expense.index') }}">
-            <span class="menu-icon">
-                <i class="fa-solid fas fa-th-list pe-3"></i>
-            </span>
-        <span class="aside-menu-title">{{ __('messages.expenses') }}</span>
-    </a>
-</li>
 
 <li class="nav-item {{ Request::is('admin/taxes*') ? 'active' : '' }}">
     <a class="nav-link d-flex align-items-center py-3" aria-current="page" href="{{ route('taxes.index') }}">

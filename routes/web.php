@@ -2,7 +2,6 @@
 
 use App\Http\Controllers\AdminPaymentController;
 use App\Http\Controllers\CategoryController;
-use App\Http\Controllers\ExpenseController;
 use App\Http\Controllers\Client as Client;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\CurrencyController;
@@ -125,17 +124,7 @@ Route::prefix('admin')->middleware(['auth', 'xss'])->group(function () {
         'update' => 'category.update',
         'destroy' => 'category.destroy',
     ]);
-    //Category Route
 
-    Route::resource('expenses', ExpenseController::class)->names([
-        'index' => 'expense.index',
-        'create' => 'expense.create',
-        'show' => 'expense.show',
-        'store' => 'expense.store',
-        'edit' => 'expense.edit',
-        'update' => 'expense.update',
-        'destroy' => 'expense.destroy',
-    ]);
     //Product Route
     Route::resource('products', ProductController::class);
 

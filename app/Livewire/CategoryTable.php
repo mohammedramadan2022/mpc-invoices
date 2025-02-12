@@ -60,16 +60,11 @@ class CategoryTable extends LivewireTableComponent
                 }),
             Column::make(__('messages.common.action'), 'id')
                 ->format(function ($value, $row, Column $column) {
-
-                   $canEdit =true;
-                   $canDelete =true;
                     return view('livewire.modal-action-button')
                         ->with([
                             'dataId' => $row->id,
                             'editClass' => 'category-edit-btn',
                             'deleteClass' => 'category-delete-btn',
-                            'canEdit' =>$canEdit,
-                            'canDelete' => $canDelete,
                         ]);
                 }),
         ];

@@ -28,7 +28,6 @@ return [
     'taxes' => 'Taxes',
     'transactions' => 'Transactions',
     'categories' => 'Categories',
-    'expenses' => 'Expenses',
     'invoice_templates' => 'Invoice Templates',
     'payments' => 'Payments',
     'payment-gateway' => 'Payment Gateway',
@@ -309,11 +308,6 @@ return [
         'edit_category' => 'Edit Category',
         'category' => 'Category',
     ],
-    'expense' => [
-        'add_expense' => 'Add Expense',
-        'edit_expense' => 'Edit Expense',
-        'expense' => 'Expense',
-    ],
 
     'product' => [
         'add_product' => 'Add Product',
@@ -555,7 +549,6 @@ return [
     'flash' => [
         'client_cant_deleted' => 'Client can\'t be deleted.',
         'category_cant_deleted' => 'Category can\'t be deleted.',
-        'expense_cant_deleted' => 'Expense can\'t be deleted.',
         'product_cant_deleted' => 'Product can\'t be deleted.',
         'tax_can_not_deleted' => 'Tax can\'t be deleted.',
         'currency_cant_deleted' => 'This Currency is used somewhere else.',
@@ -599,10 +592,6 @@ return [
         'category_retrieved_successfully' => 'Category retrieved successfully',
         'category_updated_successfully' => 'Category updated successfully',
         'category_deleted_successfully' => 'Category deleted successfully',
-        'expense_saved_successfully' => 'Expense saved successfully',
-        'expense_retrieved_successfully' => 'Expense retrieved successfully',
-        'expense_updated_successfully' => 'Expense updated successfully',
-        'expense_deleted_successfully' => 'Expense deleted successfully',
         'client_created_successfully' => 'Client created successfully',
         'client_updated_successfully' => 'Client updated successfully',
         'client_deleted_successfully' => 'Client deleted successfully',

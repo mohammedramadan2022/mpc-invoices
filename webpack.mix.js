@@ -103,7 +103,6 @@ mix.js(
         "resources/assets/js/dashboard/dashboard.js",
         "resources/assets/js/users/users.js",
         "resources/assets/js/category/category.js",
-        "resources/assets/js/category/expense.js",
         "resources/assets/js/custom/phone-number-country-code.js",
         "resources/assets/js/client/client.js",
         "resources/assets/js/client/create-edit.js",
